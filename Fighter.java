@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+//hello there
 public class Fighter {
     private int x,y,width,height;
 
