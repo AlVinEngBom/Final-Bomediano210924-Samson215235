@@ -10,14 +10,15 @@ public class BattleCanvas extends JComponent{
     private JFrame f;
     private JPanel cp;
     private Fighter fighter;
-    private BattleCanvas bc;
     // private ArrayList<AddEnemy> e;
     
-    public BattleCanvas(){
+    public BattleCanvas(int w, int h){
         
         animationTimer.start();
         e1 = new Enemy(10,250,50,50,3,3);
         e2 = new Enemy(100,50,50,50,3,3);
+        width = w;
+        height = h;
         playerCollision = 0;
         fighter = new Fighter(100, 100, 75, 75);
 
@@ -36,7 +37,7 @@ public class BattleCanvas extends JComponent{
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
-        // fighter.repaint(g);
+        fighter.repaint(g);
 
    }
    public void addKeysFighter(){
@@ -97,8 +98,8 @@ public class BattleCanvas extends JComponent{
         return fighter;
     }
 
-    public void setUpBattleCanvas(){
-        BattleCanvas bc = new BattleCanvas();
+    public void setUpBatteCanvas(){
+        BattleCanvas bc = new BattleCanvas(512,768);
         bc.setPreferredSize(new Dimension(512,768));
         f.add(bc);
         f.setTitle("Battle!!");
@@ -146,10 +147,9 @@ public class BattleCanvas extends JComponent{
             
             e1.move();
             e2.move();
-            
+            repaint();
 
             fighter.move();
-            repaint();
         }
 
         
@@ -160,8 +160,8 @@ public class BattleCanvas extends JComponent{
 
     public static void main (String[] args){
         
-        BattleCanvas bc = new BattleCanvas();
-        bc.setUpBattleCanvas();
+        BattleCanvas bc = new BattleCanvas(512, 768);
+        bc.setUpBatteCanvas();
         bc.addKeysFighter();
         
     }  
