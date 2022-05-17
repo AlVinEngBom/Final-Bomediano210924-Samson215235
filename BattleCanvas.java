@@ -36,7 +36,7 @@ public class BattleCanvas extends JComponent{
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
-        fighter.repaint(g);
+        // fighter.repaint(g);
 
    }
    public void addKeysFighter(){
@@ -146,9 +146,10 @@ public class BattleCanvas extends JComponent{
             
             e1.move();
             e2.move();
-            repaint();
+            
 
             fighter.move();
+            repaint();
         }
 
         
