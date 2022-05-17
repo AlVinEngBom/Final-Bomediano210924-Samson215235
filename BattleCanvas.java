@@ -159,7 +159,7 @@ public class BattleCanvas extends JComponent{
 
     public static void main (String[] args){
         
-        BattleCanvas bc = new BattleCanvas(512, 768);
+        BattleCanvas bc = new BattleCanvas();
         bc.setUpBattleCanvas();
         bc.addKeysFighter();
         
