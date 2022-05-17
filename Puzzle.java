@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BattleCanvas extends JComponent{
+public class Puzzle extends JComponent{
     private Enemy e1;
     private Enemy e2;
     private int width, height, playerCollision;
     
-    public BattleCanvas(int w, int h){
+    public Puzzle(int w, int h){
         //sets the values to draw the rectangles and starts the timer
         animationTimer.start();
         e1 = new Enemy(10,250,50,50,3,3);

@@ -3,13 +3,16 @@ import java.awt.event.*;
 import javax.swing.*;
 //hello there
 public class Fighter {
-    private int x,y,width,height;
+    private int x,y,width,height, xspeed, yspeed;
 
     public Fighter(int x, int y, int width, int height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+
+        xspeed = 1;
+        yspeed = 1; 
     }
     //draws the rectangle
     public void draw(Graphics g){
