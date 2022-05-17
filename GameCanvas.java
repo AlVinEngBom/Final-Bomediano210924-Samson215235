@@ -1,3 +1,4 @@
+
 //This class extendsJComponent and overrides thepaintComponent method in
 //order to create the custom drawing.
 
@@ -11,4 +12,6 @@ public class GameCanvas extends JComponent{
 
         setPreferredSize( new Dimension(1024, 768) );
     }
+
+  
 }
