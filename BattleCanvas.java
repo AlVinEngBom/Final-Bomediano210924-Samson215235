@@ -10,15 +10,14 @@ public class BattleCanvas extends JComponent{
     private JFrame f;
     private JPanel cp;
     private Fighter fighter;
+    private BattleCanvas bc;
     // private ArrayList<AddEnemy> e;
     
-    public BattleCanvas(int w, int h){
+    public BattleCanvas(){
         
         animationTimer.start();
         e1 = new Enemy(10,250,50,50,3,3);
         e2 = new Enemy(100,50,50,50,3,3);
-        width = w;
-        height = h;
         playerCollision = 0;
         fighter = new Fighter(100, 100, 75, 75);
 
@@ -99,7 +98,7 @@ public class BattleCanvas extends JComponent{
     }
 
     public void setUpBattleCanvas(){
-        BattleCanvas bc = new BattleCanvas(512,768);
+        BattleCanvas bc = new BattleCanvas();
         bc.setPreferredSize(new Dimension(512,768));
         f.add(bc);
         f.setTitle("Battle!!");
