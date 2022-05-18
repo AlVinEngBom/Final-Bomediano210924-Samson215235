@@ -2,12 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 
 public class BattleCanvas extends JComponent{
   
-    private Enemy currentEnemy;
-    // private Enemy e2;
-    private int width, height, playerHealth, gameTime;
+    private int width, height, gameTime;
+    // private int playerHealth;
     private PlayerFighter fighter;
     private ArrayList<Enemy> Enemies;
 
@@ -20,17 +23,14 @@ public class BattleCanvas extends JComponent{
         gameTime = 0;
 
         animationTimer.start();
+
         fighter = new PlayerFighter(100, 100, 25, 25);
         Enemies = new ArrayList<Enemy>();
-
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
         Enemies.add(new Enemy(100,400,50,50,1,2));
-
-
    }
    
     protected void paintComponent(Graphics g){
-        
         
         g.setColor(Color.RED);
         for(int i = 0; i < Enemies.size(); i+=1){
@@ -45,6 +45,9 @@ public class BattleCanvas extends JComponent{
         return fighter;
     }
 
+    public void setImages(){
+        // Image down1 = new ImageIcon("down1.jpg");
+    }
     Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
