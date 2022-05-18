@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class BattleCanvas extends JComponent{
     private Enemy currentEnemy;
     // private Enemy e2;
-    private int width, height, playerCollision;
+    private int width, height, playerHealth, gameTime;
     private PlayerFighter fighter;
     private ArrayList<Enemy> Enemies;
     
@@ -15,19 +15,20 @@ public class BattleCanvas extends JComponent{
         height = h;
         setPreferredSize( new Dimension(width, height) );
 
+        gameTime = 0;
+
         animationTimer.start();
-        fighter = new PlayerFighter(100, 100, 75, 75);
+        fighter = new PlayerFighter(100, 100, 25, 25);
         Enemies = new ArrayList<Enemy>();
 
-        for(int i = 0; i < 10; i+=1){
-            Enemies.add(new Enemy(10+(55*i),250+(55*i),50,50,3,3));
-        }
+        Enemies.add(new Enemy(65,305,50,50,0.5,3));
+        Enemies.add(new Enemy(100,400,50,50,1,2));
 
    }
    
     protected void paintComponent(Graphics g){
         
-        // e2.draw(g);
+        
         g.setColor(Color.RED);
         for(int i = 0; i < Enemies.size(); i+=1){
             Enemies.get(i).draw(g);
@@ -42,9 +43,37 @@ public class BattleCanvas extends JComponent{
         return fighter;
     }
 
-    Timer animationTimer = new Timer(10, new ActionListener(){
+    Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
+            gameTime++;
+            System.out.println(gameTime/100);
+            if(gameTime == 1000){
+                Enemies.add(new Enemy(5,5,50,50,3,0.5));
+            }
+            else if(gameTime == 2000){
+                Enemies.add(new Enemy(457,5,50,50,1,4));
+            }
+            else if(gameTime == 3000){
+                Enemies.add(new Enemy(5,413,50,50,1,1));
+            }
+            else if(gameTime == 4000){
+                Enemies.add(new Enemy(457,413,50,50,3,2));
+            }
+            else if(gameTime == 5000){
+                Enemies.add(new Enemy(5,5,50,50,2,3));
+            }
+            else if(gameTime == 6000){
+                Enemies.add(new Enemy(457,50,50,50,0.5,2));
+            }
+            else if(gameTime == 7000){
+                Enemies.add(new Enemy(50,413,50,50,3,1));
+            }
+            else if(gameTime == 8000){
+                Enemies.add(new Enemy(457,413,50,50,0,2));
+            }
+            
+
             for(int i = 0; i < Enemies.size(); i+=1){
                 if(Enemies.get(i).getX() <= 0){ 
                     Enemies.get(i).reverseX();
@@ -64,8 +93,11 @@ public class BattleCanvas extends JComponent{
 
             //collission for each
             for(int i = 0; i < Enemies.size(); i++){
-                for(int k = 0; k < Enemies.size() - 1; k++){
-                    
+                for(int k = i; k < Enemies.size(); k++){
+                    if(Enemies.get(i).isColliding(Enemies.get(k)) && (i != k)){
+                        Enemies.get(i).reverseSpeed();
+                        Enemies.get(k).reverseSpeed();
+                    }
                 }
             }
 
