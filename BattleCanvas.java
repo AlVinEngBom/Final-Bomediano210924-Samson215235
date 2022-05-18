@@ -29,7 +29,6 @@ public class BattleCanvas extends JComponent{
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
-
    }
 
     public Fighter getFighter(){
