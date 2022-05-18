@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class BattleCanvas extends JComponent{
   
@@ -19,7 +20,7 @@ public class BattleCanvas extends JComponent{
         gameTime = 0;
 
         animationTimer.start();
-        fighter = new PlayerFighter(100, 100, 25, 25);
+        fighter = new PlayerFighter(100, 100, 25, 25, width, height);
         Enemies = new ArrayList<Enemy>();
 
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
@@ -93,13 +94,36 @@ public class BattleCanvas extends JComponent{
                 Enemies.get(i).move();
             }
 
-            //collission for each
+            // PlayerFighter to Wall Collissions
+            if(fighter.getX() <= 0){ 
+                fighter.boundRight();
+            }
+            else if(fighter.getX() + fighter.getWidth() >= width){
+                fighter.boundLeft();
+            }
+            if(fighter.getY() <= 0){
+                fighter.boundBottom();
+            }
+            else if(fighter.getY() + fighter.getHeight() >= height){
+                fighter.boundTop();
+            }
+
+            // Enemy to Enemy Collissions
             for(int i = 0; i < Enemies.size(); i++){
                 for(int k = i; k < Enemies.size(); k++){
                     if(Enemies.get(i).isColliding(Enemies.get(k)) && (i != k)){
                         Enemies.get(i).reverseSpeed();
                         Enemies.get(k).reverseSpeed();
                     }
+                }
+            }
+
+            // Enemy to PlayerFighter Collissions
+            for(int i = 0; i < Enemies.size(); i++){
+                if(fighter.isColliding(Enemies.get(i))){
+                    // Enemies.remove(i);
+                    Enemies.get(i).reverseSpeed();
+                    // fighter.stop();
                 }
             }
 
