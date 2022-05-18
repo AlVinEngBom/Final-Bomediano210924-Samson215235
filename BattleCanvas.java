@@ -16,13 +16,11 @@ public class BattleCanvas extends JComponent{
         setPreferredSize( new Dimension(width, height) );
 
         animationTimer.start();
-
-        currentEnemy = new Enemy(10,250,50,50,3,3);
-        // e2 = new Enemy(100,50,50,50,3,3);
         fighter = new PlayerFighter(100, 100, 75, 75);
+        Enemies = new ArrayList<Enemy>();
 
         for(int i = 0; i < 5; i+=1){
-            Enemy.add(currentEnemy);
+            Enemies.add(new Enemy(10+(55*i),250+(55*i),50,50,3,3));
         }
 
    }
@@ -30,8 +28,8 @@ public class BattleCanvas extends JComponent{
     protected void paintComponent(Graphics g){
         
         // e2.draw(g);
+        g.setColor(Color.RED);
         for(int i = 0; i < Enemies.size(); i+=1){
-            g.setColor(Color.RED);
             Enemies.get(i).draw(g);
         }
 
@@ -47,52 +45,27 @@ public class BattleCanvas extends JComponent{
     Timer animationTimer = new Timer(20, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
-            if(currentEnemy.getX() <= 0){ 
-                currentEnemy.reverseX();
-            }
-            else if(currentEnemy.getX() + currentEnemy.getWidth() >= width){ 
-                currentEnemy.reverseX();
-            }
-            if(currentEnemy.getY() <= 0){ 
-                currentEnemy.reverseY();
-            }
-            else if(currentEnemy.getY() + currentEnemy.getHeight() >= height){ 
-                currentEnemy.reverseY();
-            }
-    
-            //move e2
-            // if(e2.getY() <= 0){ 
-            //     e2.reverseY();
-            // }
-            // else if(e2.getY() + e2.getHeight() >= height){ 
-            //     e2.reverseY();
-            // }
-    
-            // if(e2.getX() <= 0){ 
-            //     e2.reverseX();
-            // }
-            // else if(e2.getX() + e2.getWidth() >= width){ 
-            //     e2.reverseX();
-            // }
-    
-            // if(currentEnemy.isColliding(e2)){
-            //     currentEnemy.reverseSpeed();
-            //     e2.reverseSpeed();
-            // }
-            
             for(int i = 0; i < Enemies.size(); i+=1){
+                if(Enemies.get(i).getX() <= 0){ 
+                    Enemies.get(i).reverseX();
+                }
+                else if(Enemies.get(i).getX() + Enemies.get(i).getWidth() >= width){ 
+                    Enemies.get(i).reverseX();
+                }
+                if(Enemies.get(i).getY() <= 0){ 
+                    Enemies.get(i).reverseY();
+                }
+                else if(Enemies.get(i).getY() + Enemies.get(i).getHeight() >= height){ 
+                    Enemies.get(i).reverseY();
+                }
+
                 Enemies.get(i).move();
             }
-            
-            // e2.move();
-            fighter.move();
 
+            fighter.move();
             repaint();
         }
 
         
    });
-
-//    Timer instanceTimer = Timer();
-//    instanceTimer.schedule();    
 }
