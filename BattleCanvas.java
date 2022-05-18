@@ -1,14 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class BattleCanvas extends JComponent{
+  
     private Enemy currentEnemy;
     // private Enemy e2;
     private int width, height, playerHealth, gameTime;
     private PlayerFighter fighter;
     private ArrayList<Enemy> Enemies;
+
     
     public BattleCanvas(int w, int h){
         width = w;
@@ -24,6 +25,7 @@ public class BattleCanvas extends JComponent{
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
         Enemies.add(new Enemy(100,400,50,50,1,2));
 
+
    }
    
     protected void paintComponent(Graphics g){
@@ -36,7 +38,6 @@ public class BattleCanvas extends JComponent{
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
-
    }
 
     public PlayerFighter getFighter(){
@@ -50,6 +51,7 @@ public class BattleCanvas extends JComponent{
             System.out.println(gameTime/100);
             if(gameTime == 1000){
                 Enemies.add(new Enemy(5,5,50,50,3,0.5));
+
             }
             else if(gameTime == 2000){
                 Enemies.add(new Enemy(457,5,50,50,1,4));
@@ -104,7 +106,5 @@ public class BattleCanvas extends JComponent{
             fighter.move();
             repaint();
         }
-
-        
    });
 }

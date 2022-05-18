@@ -1,10 +1,12 @@
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class PlayerFighter {
+public class PlayerSolver {
     private int x,y,width,height;
     private boolean up,down,left,right;
     
-    public PlayerFighter(int x, int y, int width, int height){
+    public PlayerSolver(int x, int y, int width, int height){
         this.x = x;
         this.y = y;
         this.width = width;
@@ -69,10 +71,35 @@ public class PlayerFighter {
 
     }
     
-
-
+    
+    //reverses the horizontal direction
+    // public void reverseX(){
+    //     xspeed *= -1;
+    // }
+    // //reverses the vertical direction
+    // public void reverseY(){
+    //     yspeed *= -1;
+    // }
+    // //reverses the direction for both
+    // public void reverseSpeed(){
+    //     xspeed *= -1;
+    //     yspeed *= -1;
+    // }
+    // //moves the x
+    // public void moveX(){
+    //     x += xspeed;
+    // }
+    // //moves the y
+    // public void moveY(){
+    //     y += yspeed;
+    // }
+    // //moves x and y
+    // public void move(){
+    //     x += xspeed;
+    //     y += yspeed;
+    // }
     //boolean for collision
-    public boolean isColliding(PlayerFighter other){
+    public boolean isColliding(PlayerSolver other){
         return !(   this.x + this.width <= other.getX() ||
                     this.x >= other.getX() + other.getWidth() ||
                     this.y + this.height <= other.getY() ||
