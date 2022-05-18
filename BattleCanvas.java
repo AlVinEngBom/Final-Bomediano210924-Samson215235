@@ -1,24 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class BattleCanvas extends JComponent{
     private Enemy e1;
     private Enemy e2;
     private int width, height, playerCollision;
-    private Fighter fighter;
+    private PlayerFighter fighter;
     // private ArrayList<AddEnemy> e;
     
     public BattleCanvas(int w, int h){
+        width = w;
+        height = h;
         setPreferredSize( new Dimension(width, height) );
         animationTimer.start();
         e1 = new Enemy(10,250,50,50,3,3);
         e2 = new Enemy(100,50,50,50,3,3);
-        width = w;
-        height = h;
         playerCollision = 0;
-        fighter = new Fighter(100, 100, 75, 75);
+        fighter = new PlayerFighter(100, 100, 75, 75);
 
    }
    //draws the rectangles
@@ -31,12 +30,13 @@ public class BattleCanvas extends JComponent{
         fighter.draw(g);
    }
 
-    public Fighter getFighter(){
+    public PlayerFighter getFighter(){
         return fighter;
     }
 
     Timer animationTimer = new Timer(20, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
+            
             //move e1
             if(e1.getX() <= 0){ 
                 e1.reverseX();
@@ -76,10 +76,5 @@ public class BattleCanvas extends JComponent{
             fighter.move();
             repaint();
         }
-
-        
    });
-
-//    Timer instanceTimer = Timer();
-//    instanceTimer.schedule();    
 }
