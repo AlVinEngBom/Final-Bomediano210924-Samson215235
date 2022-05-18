@@ -97,13 +97,36 @@ public class BattleCanvas extends JComponent{
                 Enemies.get(i).move();
             }
 
-            //collission for each
+            // PlayerFighter to Wall Collissions
+            if(fighter.getX() <= 0){ 
+                fighter.boundRight();
+            }
+            else if(fighter.getX() + fighter.getWidth() >= width){
+                fighter.boundLeft();
+            }
+            if(fighter.getY() <= 0){
+                fighter.boundBottom();
+            }
+            else if(fighter.getY() + fighter.getHeight() >= height){
+                fighter.boundTop();
+            }
+
+            // Enemy to Enemy Collissions
             for(int i = 0; i < Enemies.size(); i++){
                 for(int k = i; k < Enemies.size(); k++){
                     if(Enemies.get(i).isColliding(Enemies.get(k)) && (i != k)){
                         Enemies.get(i).reverseSpeed();
                         Enemies.get(k).reverseSpeed();
                     }
+                }
+            }
+
+            // Enemy to PlayerFighter Collissions
+            for(int i = 0; i < Enemies.size(); i++){
+                if(fighter.isColliding(Enemies.get(i))){
+                    // Enemies.remove(i);
+                    Enemies.get(i).reverseSpeed();
+                    // fighter.stop();
                 }
             }
 

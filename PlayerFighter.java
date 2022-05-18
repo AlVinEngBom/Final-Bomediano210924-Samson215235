@@ -1,15 +1,18 @@
 import java.awt.*;
 
 public class PlayerFighter {
-    private int x,y,width,height;
+    private int x,y,width,height,speed, boundWidth, boundHeight;
     private boolean up,down,left,right;
     
-    public PlayerFighter(int x, int y, int width, int height){
+    public PlayerFighter(int x, int y, int width, int height, int boundWidth, int boundHeight){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         up = down = left = right = false;
+        speed = 5;
+        this.boundWidth = boundWidth;
+        this.boundHeight = boundHeight;
 
     }
     //draws the rectangle
@@ -17,6 +20,25 @@ public class PlayerFighter {
         g.fillRect(x,y,width,height);
     }
     //acccessor methods to return all instance fields
+    public void stop() {
+        up = down = left = right = false;
+    }
+    public void boundLeft() {
+        // x = 0;
+        x = boundWidth - width;
+    }
+    public void boundRight() {
+        // x = boundWidth - width;
+        x = 0;
+    } 
+    public void boundTop() {
+        // y = 0;
+        y = boundHeight - height;
+    } 
+    public void boundBottom() {
+        // y = boundHeight - height;
+        y = 0;
+    } 
     public int getX(){
         return x;
     }
@@ -30,7 +52,6 @@ public class PlayerFighter {
         return height;
     }
     public void move(){
-        int speed = 5;
         if(up){
            y -= speed; 
         }
@@ -65,11 +86,10 @@ public class PlayerFighter {
         else{
             up = down = left = right = false;
         }
-        
-
     }
+
     //boolean for collision
-    public boolean isColliding(PlayerFighter other){
+    public boolean isColliding(Enemy other){
         return !(   this.x + this.width <= other.getX() ||
                     this.x >= other.getX() + other.getWidth() ||
                     this.y + this.height <= other.getY() ||
