@@ -24,7 +24,7 @@ public class BattleCanvas extends JComponent{
 
         animationTimer.start();
 
-        fighter = new PlayerFighter(100, 100, 25, 25);
+        fighter = new PlayerFighter(100, 100, 25,  25, width, height);
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
         Enemies.add(new Enemy(100,400,50,50,1,2));
@@ -124,9 +124,9 @@ public class BattleCanvas extends JComponent{
             // Enemy to PlayerFighter Collissions
             for(int i = 0; i < Enemies.size(); i++){
                 if(fighter.isColliding(Enemies.get(i))){
-                    // Enemies.remove(i);
-                    Enemies.get(i).reverseSpeed();
-                    // fighter.stop();
+                    Enemies.remove(i);
+                    // Enemies.get(i).reverseSpeed();
+                    fighter.stop();
                 }
             }
 
