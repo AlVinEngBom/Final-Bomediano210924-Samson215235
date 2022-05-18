@@ -68,9 +68,6 @@ public class PlayerFighter {
         
 
     }
-    
-
-
     //boolean for collision
     public boolean isColliding(PlayerFighter other){
         return !(   this.x + this.width <= other.getX() ||
