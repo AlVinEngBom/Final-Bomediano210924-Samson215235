@@ -69,4 +69,7 @@ public class Enemy{
                     this.y + this.height <= other.getY() ||
                     this.y >= other.getY() + other.getHeight() );
     }
+    public static Object add(Enemy currentEnemy) {
+        return currentEnemy;
+    }
 }
