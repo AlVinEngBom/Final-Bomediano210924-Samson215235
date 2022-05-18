@@ -87,7 +87,7 @@ public class PlayerFighter {
             up = down = left = right = false;
         }
     }
-    
+
     //boolean for collision
     public boolean isColliding(Enemy other){
         return !(   this.x + this.width <= other.getX() ||
@@ -95,4 +95,5 @@ public class PlayerFighter {
                     this.y + this.height <= other.getY() ||
                     this.y >= other.getY() + other.getHeight() );
     }
+   
 }
