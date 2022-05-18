@@ -19,7 +19,7 @@ public class BattleCanvas extends JComponent{
         fighter = new PlayerFighter(100, 100, 75, 75);
         Enemies = new ArrayList<Enemy>();
 
-        for(int i = 0; i < 5; i+=1){
+        for(int i = 0; i < 10; i+=1){
             Enemies.add(new Enemy(10+(55*i),250+(55*i),50,50,3,3));
         }
 
@@ -42,7 +42,7 @@ public class BattleCanvas extends JComponent{
         return fighter;
     }
 
-    Timer animationTimer = new Timer(20, new ActionListener(){
+    Timer animationTimer = new Timer(10, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
             for(int i = 0; i < Enemies.size(); i+=1){
@@ -60,6 +60,13 @@ public class BattleCanvas extends JComponent{
                 }
 
                 Enemies.get(i).move();
+            }
+
+            //collission for each
+            for(int i = 0; i < Enemies.size(); i++){
+                for(int k = 0; k < Enemies.size() - 1; k++){
+                    
+                }
             }
 
             fighter.move();
