@@ -1,4 +1,3 @@
-
 //This class extendsJComponent and overrides thepaintComponent method in
 //order to create the custom drawing.
 

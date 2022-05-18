@@ -11,7 +11,7 @@ public class BattleCanvas extends JComponent{
     // private ArrayList<AddEnemy> e;
     
     public BattleCanvas(int w, int h){
-        
+        setPreferredSize( new Dimension(width, height) );
         animationTimer.start();
         e1 = new Enemy(10,250,50,50,3,3);
         e2 = new Enemy(100,50,50,50,3,3);
@@ -25,13 +25,10 @@ public class BattleCanvas extends JComponent{
     protected void paintComponent(Graphics g){
         g.setColor(Color.RED);
         e1.draw(g);
-
-        g.setColor(Color.RED);
         e2.draw(g);
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
-        fighter.repaint(g);
 
    }
 
@@ -85,15 +82,5 @@ public class BattleCanvas extends JComponent{
    });
 
 //    Timer instanceTimer = Timer();
-//    instanceTimer.schedule();
-
-    public static void main (String[] args){
-        
-        BattleFrame f = new BattleFrame(512, 768);
-        f.setUpGUI();
-        f.addKeysFighter();
-        
-    }  
-    
-    
+//    instanceTimer.schedule();    
 }

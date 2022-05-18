@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 public class Fighter {
     private int x,y,width,height;
     private boolean up,down,left,right;
@@ -104,12 +105,4 @@ public class Fighter {
                     this.y + this.height <= other.getY() ||
                     this.y >= other.getY() + other.getHeight() );
     }
-    public void repaint(Graphics g) {
-    }
-
-
-    
-
-    
-
 }
