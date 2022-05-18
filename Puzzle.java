@@ -1,4 +1,8 @@
 import javax.swing.*;
+
+import BattleCanvas;
+import Enemy;
+
 import java.awt.*;
 import java.awt.event.*;
 
