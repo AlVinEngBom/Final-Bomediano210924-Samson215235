@@ -78,4 +78,5 @@ public class PlayerFighter {
                     this.y + this.height <= other.getY() ||
                     this.y >= other.getY() + other.getHeight() );
     }
+   
 }
