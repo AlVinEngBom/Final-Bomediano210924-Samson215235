@@ -3,28 +3,38 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class BattleCanvas extends JComponent{
-    private Enemy e1;
-    private Enemy e2;
-    private int width, height, playerCollision;
+  
+    private Enemy currentEnemy;
+    // private Enemy e2;
+    private int width, height, playerHealth, gameTime;
     private PlayerFighter fighter;
-    // private ArrayList<AddEnemy> e;
+    private ArrayList<Enemy> Enemies;
+
     
     public BattleCanvas(int w, int h){
         width = w;
         height = h;
         setPreferredSize( new Dimension(width, height) );
+
+        gameTime = 0;
+
         animationTimer.start();
-        e1 = new Enemy(10,250,50,50,3,3);
-        e2 = new Enemy(100,50,50,50,3,3);
-        playerCollision = 0;
-        fighter = new PlayerFighter(100, 100, 75, 75);
+        fighter = new PlayerFighter(100, 100, 25, 25);
+        Enemies = new ArrayList<Enemy>();
+
+        Enemies.add(new Enemy(65,305,50,50,0.5,3));
+        Enemies.add(new Enemy(100,400,50,50,1,2));
+
 
    }
-   //draws the rectangles
+   
     protected void paintComponent(Graphics g){
+        
+        
         g.setColor(Color.RED);
-        e1.draw(g);
-        e2.draw(g);
+        for(int i = 0; i < Enemies.size(); i+=1){
+            Enemies.get(i).draw(g);
+        }
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
@@ -34,45 +44,65 @@ public class BattleCanvas extends JComponent{
         return fighter;
     }
 
-    Timer animationTimer = new Timer(20, new ActionListener(){
+    Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
-            //move e1
-            if(e1.getX() <= 0){ 
-                e1.reverseX();
+            gameTime++;
+            System.out.println(gameTime/100);
+            if(gameTime == 1000){
+                Enemies.add(new Enemy(5,5,50,50,3,0.5));
+
             }
-            else if(e1.getX() + e1.getWidth() >= width){ 
-                e1.reverseX();
+            else if(gameTime == 2000){
+                Enemies.add(new Enemy(457,5,50,50,1,4));
             }
-            if(e1.getY() <= 0){ 
-                e1.reverseY();
+            else if(gameTime == 3000){
+                Enemies.add(new Enemy(5,413,50,50,1,1));
             }
-            else if(e1.getY() + e1.getHeight() >= height){ 
-                e1.reverseY();
+            else if(gameTime == 4000){
+                Enemies.add(new Enemy(457,413,50,50,3,2));
             }
-    
-            //move e2
-            if(e2.getY() <= 0){ 
-                e2.reverseY();
+            else if(gameTime == 5000){
+                Enemies.add(new Enemy(5,5,50,50,2,3));
             }
-            else if(e2.getY() + e2.getHeight() >= height){ 
-                e2.reverseY();
+            else if(gameTime == 6000){
+                Enemies.add(new Enemy(457,50,50,50,0.5,2));
             }
-    
-            if(e2.getX() <= 0){ 
-                e2.reverseX();
+            else if(gameTime == 7000){
+                Enemies.add(new Enemy(50,413,50,50,3,1));
             }
-            else if(e2.getX() + e2.getWidth() >= width){ 
-                e2.reverseX();
-            }
-    
-            if(e1.isColliding(e2)){
-                e1.reverseSpeed();
-                e2.reverseSpeed();
+            else if(gameTime == 8000){
+                Enemies.add(new Enemy(457,413,50,50,0,2));
             }
             
-            e1.move();
-            e2.move();
+
+            for(int i = 0; i < Enemies.size(); i+=1){
+                if(Enemies.get(i).getX() <= 0){ 
+                    Enemies.get(i).reverseX();
+                }
+                else if(Enemies.get(i).getX() + Enemies.get(i).getWidth() >= width){ 
+                    Enemies.get(i).reverseX();
+                }
+                if(Enemies.get(i).getY() <= 0){ 
+                    Enemies.get(i).reverseY();
+                }
+                else if(Enemies.get(i).getY() + Enemies.get(i).getHeight() >= height){ 
+                    Enemies.get(i).reverseY();
+                }
+
+                Enemies.get(i).move();
+            }
+
+            //collission for each
+            for(int i = 0; i < Enemies.size(); i++){
+                for(int k = i; k < Enemies.size(); k++){
+                    if(Enemies.get(i).isColliding(Enemies.get(k)) && (i != k)){
+                        Enemies.get(i).reverseSpeed();
+                        Enemies.get(k).reverseSpeed();
+                    }
+                }
+            }
+
             fighter.move();
             repaint();
         }

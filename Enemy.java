@@ -1,11 +1,12 @@
 import java.awt.*;
 
 public class Enemy{
-    private int x,y,width,height,xspeed,yspeed;
+    private int x,y,width,height;
+    private double xspeed,yspeed;
    
     //a constructor that accepts arguments for the x and y positions, width, height, 
     //and speed of the rectangle
-    public Enemy(int x, int y, int width, int height, int xspeed, int yspeed){
+    public Enemy(int x, int y, int width, int height, double xspeed, double yspeed){
         this.x = x;
         this.y = y;
         this.width = width;
@@ -30,10 +31,10 @@ public class Enemy{
     public int getHeight(){
         return height;
     }
-    public int getXspeed(){
+    public double getXspeed(){
         return xspeed;
     }
-    public int getYspeed(){
+    public double getYspeed(){
         return yspeed;
     }
     //reverses the horizontal direction
@@ -68,5 +69,8 @@ public class Enemy{
                     this.x >= other.getX() + other.getWidth() ||
                     this.y + this.height <= other.getY() ||
                     this.y >= other.getY() + other.getHeight() );
+    }
+    public static Object add(Enemy currentEnemy) {
+        return currentEnemy;
     }
 }
