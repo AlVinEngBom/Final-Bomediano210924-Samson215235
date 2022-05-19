@@ -1,11 +1,15 @@
 import javax.swing.*;
 // import java.awt.*;
 import java.awt.event.*;
+import javax.swing.ImageIcon;
+
 
 public class BattleStarter {
     private JFrame frame;
     private JPanel cp;
+    private JLabel down;
     private BattleCanvas bc;
+    private ImageIcon image;
 
     public void setUpGUI(){
         frame = new JFrame();
@@ -15,8 +19,17 @@ public class BattleStarter {
         frame.setTitle("Battle!!");
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try{
+            image = new ImageIcon(getClass().getResource("Sprites/Backgrounds/PlayerFighterBackground.png"));
+            down = new JLabel(image);
+            frame.add(down);
+        } catch(Exception ex){
+            System.out.println("Image not found!");
+        }
         frame.setVisible(true);
     }
+
+    
 
     public void addKeyBindings(){
         cp = (JPanel) frame.getContentPane();
@@ -48,11 +61,12 @@ public class BattleStarter {
         public void actionPerformed(ActionEvent ae){
             bc.getFighter().setDirection(direction);
         }
-    }   
-
+    }
+       
     public static void main (String[] args){
         BattleStarter bs = new BattleStarter();
         bs.setUpGUI();
         bs.addKeyBindings();
+        
     }
 }

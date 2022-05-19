@@ -2,10 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-
 
 public class BattleCanvas extends JComponent{
   
@@ -45,9 +41,7 @@ public class BattleCanvas extends JComponent{
         return fighter;
     }
 
-    public void setImages(){
-        // Image down1 = new ImageIcon("down1.jpg");
-    }
+    
     Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
