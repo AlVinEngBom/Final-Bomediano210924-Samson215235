@@ -2,12 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class GameCanvas extends JComponent{
 
-    private int width, height, gameTime, playerID;
+    private int width, height, gameTime, playerID, fighterHealth;
     private Player fighter, solver;
     private ArrayList<Enemy> Enemies;
+    private boolean win, lose;
 
     
     public GameCanvas(int w, int h, int pID){
@@ -26,12 +29,16 @@ public class GameCanvas extends JComponent{
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
         Enemies.add(new Enemy(100,400,50,50,1,2));
 
+        fighterHealth = 3;
+        win = lose = false;
 
    }
    
     protected void paintComponent(Graphics g){
         
-        
+        Image img = new ImageIcon("Sprites/GameBackground.png").getImage();
+        g.drawImage(img, 0, 0, null);
+
         g.setColor(Color.RED);
         for(int i = 0; i < Enemies.size(); i+=1){
             Enemies.get(i).draw(g);
@@ -51,14 +58,11 @@ public class GameCanvas extends JComponent{
             return solver;
         }
     }
-
-    public
-
     Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
             gameTime++;
-            System.out.println(gameTime/100);
+            // System.out.println(gameTime/100);
             if(gameTime == 1000){
                 Enemies.add(new Enemy(5,5,50,50,3,0.5));
 
@@ -130,10 +134,17 @@ public class GameCanvas extends JComponent{
             // Enemy to PlayerFighter Collissions
             for(int i = 0; i < Enemies.size(); i++){
                 if(fighter.isColliding(Enemies.get(i))){
-                    // Enemies.remove(i);
+                    Enemies.remove(i);
                     Enemies.get(i).reverseSpeed();
-                    // fighter.stop();
+                    fighterHealth -= 1;
+                    System.out.println(fighterHealth);
+                    
+                    if(fighterHealth == 0){
+                        lose = true;
+                        fighter.stop();
+                    }
                 }
+                
             }
 
             fighter.move();
@@ -141,4 +152,13 @@ public class GameCanvas extends JComponent{
             repaint();
         }
    });
+   public int getFighterHealth(){
+       return fighterHealth;
+   }
+   public boolean getWin(){
+       return win;
+   }
+   public boolean getLose(){
+       return lose;
+}
 }

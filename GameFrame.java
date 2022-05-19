@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,28 +8,23 @@ import java.io.IOException;
 import java.net.*;
 import java.text.DecimalFormat;
 
-// import javax.swing.ImageIcon;
-
 public class GameFrame extends JFrame{
 
     private int width, height, playerID;
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
-    private JLabel counterLabel;
+    private JLabel timerLabel, fighterHealthLabel;
     private int second, minute;
     private Timer timer;
     private String ddSecond,ddMinute;
-
-    // private ImageIcon backgroundImage;
-    // private JLabel background;
 
     public GameFrame(int w, int h) {
         width = w;
         height = h;
         second = 0;
         minute = 0;
-        // counterLabel.setText("00:00");
+        // timerLabel.setText("00:00");
     }
     
     public void normalTimer(){
@@ -38,14 +35,14 @@ public class GameFrame extends JFrame{
                 DecimalFormat dFormat = new DecimalFormat("00");
                 ddSecond = dFormat.format(second);
                 ddMinute = dFormat.format(minute);
-                counterLabel.setText(ddMinute + ":" + ddSecond);
+                timerLabel.setText(ddMinute + ":" + ddSecond);
 
                 if(second == 60){
                     second = 0;
                     minute++;
                     ddSecond = dFormat.format(second);
                     ddMinute = dFormat.format(minute);
-                    counterLabel.setText(ddMinute + ":" + ddSecond);
+                    timerLabel.setText(ddMinute + ":" + ddSecond);
                 }
             }
         });
@@ -53,20 +50,19 @@ public class GameFrame extends JFrame{
     }
 
     public void setUpGUI(){
-        gc = new GameCanvas(width,height, playerID);
-        counterLabel = new JLabel("");
-        counterLabel.setBounds(505,0,50,30);
-        counterLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.add(counterLabel);
-        this.add(gc);
         this.setTitle("Player #" + playerID);
-        // try{
-        //     backgroundImage = new ImageIcon(getClass().getResource("Sprites/Backgrounds/PlayerFighterBackground.png"));
-        //     background = new JLabel(backgroundImage);
-        //     this.add(background);
-        // } catch(Exception ex){
-        //     System.out.println("Background Image not found!");
-        // }
+        gc = new GameCanvas(width,height, playerID);
+        timerLabel = new JLabel("");
+        timerLabel.setForeground(Color.WHITE);
+        timerLabel.setBounds(486,0,50,30);
+        timerLabel.setHorizontalAlignment(JLabel.CENTER);
+        fighterHealthLabel = new JLabel("Lives: " + gc.getFighterHealth());
+        fighterHealthLabel.setForeground(Color.WHITE);
+        fighterHealthLabel.setBounds(486,10,50,30);
+        fighterHealthLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.add(timerLabel);
+        this.add(fighterHealthLabel);
+        this.add(gc);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
