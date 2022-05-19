@@ -56,6 +56,7 @@ public class GameFrame extends JFrame{
         timerLabel.setForeground(Color.WHITE);
         timerLabel.setBounds(486,0,50,30);
         timerLabel.setHorizontalAlignment(JLabel.CENTER);
+        //work in a sysout but does not update on the JLabel
         fighterHealthLabel = new JLabel("Lives: " + gc.getFighterHealth());
         fighterHealthLabel.setForeground(Color.WHITE);
         fighterHealthLabel.setBounds(486,10,50,30);
