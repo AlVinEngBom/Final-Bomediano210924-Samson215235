@@ -4,8 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
+import java.text.DecimalFormat;
 
-import javax.swing.ImageIcon;
+// import javax.swing.ImageIcon;
 
 public class GameFrame extends JFrame{
 
@@ -13,27 +14,59 @@ public class GameFrame extends JFrame{
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
+    private JLabel counterLabel;
+    private int second, minute;
+    private Timer timer;
+    private String ddSecond,ddMinute;
 
-    private ImageIcon backgroundImage;
-    private JLabel background;
+    // private ImageIcon backgroundImage;
+    // private JLabel background;
 
     public GameFrame(int w, int h) {
         width = w;
         height = h;
+        second = 0;
+        minute = 0;
+        // counterLabel.setText("00:00");
+    }
+    
+    public void normalTimer(){
+        timer = new Timer(1000, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                second++;
+                DecimalFormat dFormat = new DecimalFormat("00");
+                ddSecond = dFormat.format(second);
+                ddMinute = dFormat.format(minute);
+                counterLabel.setText(ddMinute + ":" + ddSecond);
+
+                if(second == 60){
+                    second = 0;
+                    minute++;
+                    ddSecond = dFormat.format(second);
+                    ddMinute = dFormat.format(minute);
+                    counterLabel.setText(ddMinute + ":" + ddSecond);
+                }
+            }
+        });
+        timer.start();
     }
 
     public void setUpGUI(){
         gc = new GameCanvas(width,height, playerID);
-        try{
-            backgroundImage = new ImageIcon(getClass().getResource("PlayerFighterBackground.png"));
-            background = new JLabel(backgroundImage);
-            this.add(background);
-        } catch(Exception ex){
-            System.out.println("Background Image not found!");
-        }
+        counterLabel = new JLabel("");
+        counterLabel.setBounds(505,0,50,30);
+        counterLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.add(counterLabel);
         this.add(gc);
         this.setTitle("Player #" + playerID);
-        
+        // try{
+        //     backgroundImage = new ImageIcon(getClass().getResource("Sprites/Backgrounds/PlayerFighterBackground.png"));
+        //     background = new JLabel(backgroundImage);
+        //     this.add(background);
+        // } catch(Exception ex){
+        //     System.out.println("Background Image not found!");
+        // }
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
