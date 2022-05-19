@@ -5,5 +5,6 @@ public class GameStarter {
         gf.connectToServer();
         gf.setUpGUI();
         gf.addKeyBindings();
+        gf.normalTimer();
     }
 }
