@@ -5,12 +5,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
+import javax.swing.ImageIcon;
+
 public class GameFrame extends JFrame{
 
     private int width, height, playerID;
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
+
+    private ImageIcon backgroundImage;
+    private JLabel background;
 
     public GameFrame(int w, int h) {
         width = w;
@@ -22,6 +27,13 @@ public class GameFrame extends JFrame{
 
         this.add(gc);
         this.setTitle("Player #" + playerID);
+        try{
+            backgroundImage = new ImageIcon(getClass().getResource("Sprites/Backgrounds/PlayerFighterBackground.png"));
+            background = new JLabel(backgroundImage);
+            this.add(background);
+        } catch(Exception ex){
+            System.out.println("Background Image not found!");
+        }
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
