@@ -5,22 +5,24 @@ import java.util.ArrayList;
 
 public class GameCanvas extends JComponent{
 
-    private int width, height, gameTime;
-    private Player fighter;
+    private int width, height, gameTime, playerID;
+    private Player fighter, solver;
     private ArrayList<Enemy> Enemies;
 
     
-    public GameCanvas(int w, int h){
+    public GameCanvas(int w, int h, int pID){
         width = w;
         height = h;
+        playerID = pID;
         setPreferredSize( new Dimension(width, height) );
 
         gameTime = 0;
 
         animationTimer.start();
         fighter = new Player(100, 100, 25, 25, width, height);
-        Enemies = new ArrayList<Enemy>();
+        solver = new Player(200, 200, 25, 25, width, height);
 
+        Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
         Enemies.add(new Enemy(100,400,50,50,1,2));
 
@@ -37,11 +39,20 @@ public class GameCanvas extends JComponent{
 
         g.setColor(Color.GREEN);
         fighter.draw(g);
+
+        g.setColor(Color.BLUE);
+        solver.draw(g);
    }
 
-    public Player getFighter(){
-        return fighter;
+    public Player getPlayer(){
+        if (playerID == 1) {
+            return fighter;
+        } else {
+            return solver;
+        }
     }
+
+    public
 
     Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
@@ -126,6 +137,7 @@ public class GameCanvas extends JComponent{
             }
 
             fighter.move();
+            solver.move();
             repaint();
         }
    });

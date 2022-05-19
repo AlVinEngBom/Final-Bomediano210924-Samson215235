@@ -1,18 +1,16 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.DataInputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
 public class GameFrame extends JFrame{
 
-    private int width, height;
+    private int width, height, playerID;
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
-    private int playerID;
 
     public GameFrame(int w, int h) {
         width = w;
@@ -20,10 +18,10 @@ public class GameFrame extends JFrame{
     }
 
     public void setUpGUI(){
-        gc = new GameCanvas(width/2,height);
+        gc = new GameCanvas(width,height, playerID);
 
         this.add(gc);
-        this.setTitle("Battle!!");
+        this.setTitle("Player #" + playerID);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -57,7 +55,7 @@ public class GameFrame extends JFrame{
         }
 
         public void actionPerformed(ActionEvent ae){
-            gc.getFighter().setDirection(direction);
+            gc.getPlayer().setDirection(direction);
         }
     }   
 
