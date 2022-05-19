@@ -24,16 +24,16 @@ public class GameFrame extends JFrame{
 
     public void setUpGUI(){
         gc = new GameCanvas(width,height, playerID);
-
-        this.add(gc);
-        this.setTitle("Player #" + playerID);
         try{
-            backgroundImage = new ImageIcon(getClass().getResource("Sprites/Backgrounds/PlayerFighterBackground.png"));
+            backgroundImage = new ImageIcon(getClass().getResource("PlayerFighterBackground.png"));
             background = new JLabel(backgroundImage);
             this.add(background);
         } catch(Exception ex){
             System.out.println("Background Image not found!");
         }
+        this.add(gc);
+        this.setTitle("Player #" + playerID);
+        
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
