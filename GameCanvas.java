@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import java.text.DecimalFormat;
+import java.net.URL;
+
 
 public class GameCanvas extends JComponent{
 
@@ -14,9 +16,12 @@ public class GameCanvas extends JComponent{
     private String ddSecond,ddMinute, timerText;
     private int second, minute;
     private int delaySecond;
+    private Music m;
 
     
     public GameCanvas(int w, int h, int pID){
+
+        m = new Music();
         width = w;
         height = h;
         playerID = pID;
@@ -33,7 +38,7 @@ public class GameCanvas extends JComponent{
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,1,3));
         Enemies.add(new Enemy(100,400,1,2));
-        Enemies.add(new Enemy(512,531,0,0));
+        // Enemies.add(new Enemy(512,531,0,0));
 
         fighterHealth = 3;
         
@@ -51,20 +56,16 @@ public class GameCanvas extends JComponent{
         }
 
         Image fighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png").getImage();
-        // Image modifiedFighterIcon = fighterIcon.getScaledInstance(25, 25, Image.SCALE_DEFAULT);
-        // fighter.draw(g, modifiedFighterIcon);
         fighter.draw(g, fighterIcon);
 
         Image solverIcon = new ImageIcon("Sprites/PlayerSolverSprites/down/down1.png").getImage();
-        // Image modifiedSolverIcon = solverIcon.getScaledInstance(25, 25, Image.SCALE_DEFAULT);
-        // solver.draw(g, modifiedSolverIcon);
         solver.draw(g, solverIcon);
 
         g.setColor(Color.WHITE);
-        g.drawString(timerText,497,20);
+        g.drawString(timerText,497,17);
 
         g.setColor(Color.WHITE);
-        g.drawString("Lives: " + fighterHealth,490,30);
+        g.drawString("Lives: " + fighterHealth,490,570);
 
    }
 
@@ -77,10 +78,13 @@ public class GameCanvas extends JComponent{
     }
     Timer animationTimer = new Timer(1, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
-            
+
+            // URL typeSoundURL = getClass().getResource("Encounter.wav");
+            // m.setURL(typeSoundURL);
+            // m.play();
+
             delaySecond++;
             second = delaySecond/100;
-            // minute = delayMinute/100;
             DecimalFormat dFormat = new DecimalFormat("00");
             ddSecond = dFormat.format(second);
             ddMinute = dFormat.format(minute);
@@ -96,7 +100,6 @@ public class GameCanvas extends JComponent{
             } 
 
             gameTime++;
-            // System.out.println(gameTime/100);
             if(gameTime == 1000){
                 Enemies.add(new Enemy(5,5,3,1));
 
@@ -171,7 +174,7 @@ public class GameCanvas extends JComponent{
                     fighterHealth -= 1;
                     // Enemies.get(i).reverseSpeed();
                     Enemies.remove(i);     
-                    
+                    //losing condition
                     if(fighterHealth == 0){
                         fighter.stop();
                         solver.stop();
@@ -187,27 +190,21 @@ public class GameCanvas extends JComponent{
                 
             }
             //winning condition
-            for(int i = 0; i < Enemies.size(); i++){
-                if(solver.isColliding(Enemies.get(i))){
-                    animationTimer.stop();
-                    solver.stop();
-                    fighter.stop();
-                    ImageIcon winIcon = new ImageIcon("Sprites/WinEmoji.png");
-                    Image winImage = winIcon.getImage();
-                    Image modifiedWinImage = winImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
-                    winIcon = new ImageIcon(modifiedWinImage);
-                    JOptionPane.showMessageDialog(null, "Solver escaped the maze!!","YOU WON!", JOptionPane.INFORMATION_MESSAGE,winIcon);
-                    System.exit(0);
-                    
-                }
-                
+            if(solver.getY() + solver.getHeight() >= height){
+                animationTimer.stop();
+                solver.stop();
+                fighter.stop();
+                ImageIcon winIcon = new ImageIcon("Sprites/WinEmoji.png");
+                Image winImage = winIcon.getImage();
+                Image modifiedWinImage = winImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
+                winIcon = new ImageIcon(modifiedWinImage);
+                JOptionPane.showMessageDialog(null, "Solver escaped the maze!!","YOU WON!", JOptionPane.INFORMATION_MESSAGE,winIcon);
+                System.exit(0);
             }
-
-
+            
             fighter.move();
             solver.move();
             repaint();
-
         }
    });
 }

@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
-// import java.text.DecimalFormat;
-
 
 public class GameFrame extends JFrame{
 
@@ -13,29 +11,20 @@ public class GameFrame extends JFrame{
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
+    
 
     public GameFrame(int w, int h) {
         width = w;
         height = h;
-
     }
 
     public void setUpGUI(){
         this.setTitle("Player #" + playerID);
-
         gc = new GameCanvas(width,height, playerID);
-    
         this.add(gc);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-
-        //winScreen
-        // ImageIcon winIcon = new ImageIcon("Sprites/WinEmoji.png");
-        // Image winImage = winIcon.getImage();
-        // Image modifiedWinImage = winImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
-        // winIcon = new ImageIcon(modifiedWinImage);
-        // JOptionPane.showMessageDialog(null, "Solver escaped the maze!!","YOU WON!", JOptionPane.INFORMATION_MESSAGE,winIcon);
 
     }
 
