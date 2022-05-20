@@ -1,12 +1,12 @@
 import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
-import java.text.DecimalFormat;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 public class GameFrame extends JFrame{
 
@@ -14,59 +14,26 @@ public class GameFrame extends JFrame{
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
-    private JLabel timerLabel, fighterHealthLabel;
-    private int second, minute;
-    private Timer timer;
-    private String ddSecond,ddMinute;
 
     public GameFrame(int w, int h) {
         width = w;
         height = h;
-        second = 0;
-        minute = 0;
-        // timerLabel.setText("00:00");
-    }
-    
-    public void normalTimer(){
-        timer = new Timer(1000, new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae){
-                second++;
-                DecimalFormat dFormat = new DecimalFormat("00");
-                ddSecond = dFormat.format(second);
-                ddMinute = dFormat.format(minute);
-                timerLabel.setText(ddMinute + ":" + ddSecond);
-
-                if(second == 60){
-                    second = 0;
-                    minute++;
-                    ddSecond = dFormat.format(second);
-                    ddMinute = dFormat.format(minute);
-                    timerLabel.setText(ddMinute + ":" + ddSecond);
-                }
-            }
-        });
-        timer.start();
     }
 
     public void setUpGUI(){
         this.setTitle("Player #" + playerID);
         gc = new GameCanvas(width,height, playerID);
-        timerLabel = new JLabel("");
-        timerLabel.setForeground(Color.WHITE);
-        timerLabel.setBounds(486,0,50,30);
-        timerLabel.setHorizontalAlignment(JLabel.CENTER);
-        //work in a sysout but does not update on the JLabel
-        fighterHealthLabel = new JLabel("Lives: " + gc.getFighterHealth());
-        fighterHealthLabel.setForeground(Color.WHITE);
-        fighterHealthLabel.setBounds(486,10,50,30);
-        fighterHealthLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.add(timerLabel);
-        this.add(fighterHealthLabel);
         this.add(gc);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
+        // ImageIcon winIcon = new ImageIcon("Sprites/WinEmoji.png");
+        // Image winImage = winIcon.getImage();
+        // Image modifiedWinImage = winImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
+        // winIcon = new ImageIcon(modifiedWinImage);
+        // JOptionPane.showMessageDialog(null, "Solver escaped the maze!!","YOU WON!", JOptionPane.INFORMATION_MESSAGE,winIcon);
+        
     }
 
     public void addKeyBindings(){
