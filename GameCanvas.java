@@ -28,8 +28,8 @@ public class GameCanvas extends JComponent{
         minute = 0;
 
         animationTimer.start();
-        fighter = new Player(100, 100, 25, 25, width, height);
-        solver = new Player(200, 200, 25, 25, width, height);
+        fighter = new Player(100, 100, 33, 43, width, height);
+        solver = new Player(200, 200, 31, 45, width, height);
 
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,50,50,1,3));
@@ -43,25 +43,23 @@ public class GameCanvas extends JComponent{
    
     protected void paintComponent(Graphics g){
         
-        Image img = new ImageIcon("Sprites/GameBackground.png").getImage();
-        g.drawImage(img, 0, 0, null);
+        Image gb = new ImageIcon("Sprites/GameBackground.png").getImage();
+        g.drawImage(gb, 0, 0, null);
 
-        g.setColor(Color.RED);
+        Image enemyIcon = new ImageIcon("Sprites/EnemySprite.png").getImage();
         for(int i = 0; i < Enemies.size(); i+=1){
-            Enemies.get(i).draw(g);
+            Enemies.get(i).draw(g, enemyIcon);
         }
 
-        // g.setColor(Color.GREEN);
-        // fighter.draw(g);
-
-        // g.setColor(Color.BLUE);
-        // solver.draw(g);
-
         Image fighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png").getImage();
-        fighter.draw(g, fighterIcon, 50, 50);
+        // Image modifiedFighterIcon = fighterIcon.getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+        // fighter.draw(g, modifiedFighterIcon);
+        fighter.draw(g, fighterIcon);
 
         Image solverIcon = new ImageIcon("Sprites/PlayerSolverSprites/down/down1.png").getImage();
-        solver.draw(g, solverIcon, 150, 150);
+        // Image modifiedSolverIcon = solverIcon.getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+        // solver.draw(g, modifiedSolverIcon);
+        solver.draw(g, solverIcon);
 
         g.setColor(Color.WHITE);
         g.drawString(timerText,497,20);

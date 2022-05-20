@@ -20,8 +20,8 @@ public class Player {
 
     }
     //draws the rectangle
-    public void draw(Graphics g, Image ii, int x, int y ){
-        g.drawImage(ii, x, y, null);
+    public void draw(Graphics g, Image i){
+        g.drawImage(i, x, y, null);
     }
     //acccessor methods to return all instance fields
     public void stop() {
