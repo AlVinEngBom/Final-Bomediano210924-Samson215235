@@ -1,5 +1,4 @@
 import java.awt.*;
-import javax.swing.ImageIcon;
 import java.awt.Image;
 
 public class Player {
@@ -15,8 +14,6 @@ public class Player {
         speed = 5;
         this.boundWidth = boundWidth;
         this.boundHeight = boundHeight;
-
-        
 
     }
     //draws the rectangle

@@ -6,11 +6,11 @@ public class Enemy{
    
     //a constructor that accepts arguments for the x and y positions, width, height, 
     //and speed of the rectangle
-    public Enemy(int x, int y, int width, int height, double xspeed, double yspeed){
+    public Enemy(int x, int y, double xspeed, double yspeed){
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        width = 35;
+        height = 40;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
     }
