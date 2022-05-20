@@ -111,16 +111,30 @@ public class GameCanvas extends JComponent{
 
             // PlayerFighter to Wall Collissions
             if(fighter.getX() <= 0){ 
-                fighter.boundRight();
+                fighter.boundRight(0);
             }
             else if(fighter.getX() + fighter.getWidth() >= width/2){
-                fighter.boundLeft();
+                fighter.boundLeft(width/2);
             }
             if(fighter.getY() <= 0){
                 fighter.boundBottom();
             }
             else if(fighter.getY() + fighter.getHeight() >= height){
                 fighter.boundTop();
+            }
+
+            // PlayerSolver to Wall Collissions
+            if(solver.getX() <= width/2){ 
+                solver.boundRight(width/2);
+            }
+            else if(solver.getX() + solver.getWidth() >= width){
+                solver.boundLeft(width);
+            }
+            if(solver.getY() <= 0){
+                solver.boundBottom();
+            }
+            else if(solver.getY() + solver.getHeight() >= height){
+                solver.boundTop();
             }
 
             // Enemy to Enemy Collissions

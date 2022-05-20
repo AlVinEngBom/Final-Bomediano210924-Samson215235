@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Player {
-    private int x,y,width,height,speed, boundWidth, boundHeight;
+    private int x,y,width,height,speed, boundHeight;
     private boolean up,down,left,right;
     
     public Player(int x, int y, int width, int height, int boundWidth, int boundHeight){
@@ -11,7 +11,6 @@ public class Player {
         this.height = height;
         up = down = left = right = false;
         speed = 5;
-        this.boundWidth = boundWidth;
         this.boundHeight = boundHeight;
 
     }
@@ -23,13 +22,13 @@ public class Player {
     public void stop() {
         up = down = left = right = false;
     }
-    public void boundLeft() {
+    public void boundLeft(int boundEnd) {
         // x = 0;
-        x = boundWidth/2 - width;
+        x = boundEnd - width;
     }
-    public void boundRight() {
+    public void boundRight(int boundStart) {
         // x = boundWidth - width;
-        x = 0;
+        x = boundStart;
     } 
     public void boundTop() {
         // y = 0;
