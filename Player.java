@@ -14,6 +14,8 @@ public class Player {
         this.boundWidth = boundWidth;
         this.boundHeight = boundHeight;
 
+        
+
     }
     //draws the rectangle
     public void draw(Graphics g){
@@ -24,11 +26,9 @@ public class Player {
         up = down = left = right = false;
     }
     public void boundLeft() {
-        // x = 0;
         x = boundWidth - width;
     }
     public void boundRight() {
-        // x = boundWidth - width;
         x = 0;
     } 
     public void boundTop() {
@@ -36,7 +36,6 @@ public class Player {
         y = boundHeight - height;
     } 
     public void boundBottom() {
-        // y = boundHeight - height;
         y = 0;
     } 
     public int getX(){
@@ -67,7 +66,9 @@ public class Player {
          
     }
     public void setDirection(String dir){
+
         if(dir.equals("up")){
+            
             up = true;
             down = left = right = false;
         }
