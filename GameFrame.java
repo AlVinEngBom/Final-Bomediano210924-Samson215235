@@ -1,12 +1,11 @@
+import java.net.*;
 import javax.swing.*;
-import java.awt.Color;
 import java.awt.event.*;
+import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.*;
-import javax.swing.ImageIcon;
 import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class GameFrame extends JFrame{
 
@@ -33,6 +32,11 @@ public class GameFrame extends JFrame{
         // Image modifiedWinImage = winImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
         // winIcon = new ImageIcon(modifiedWinImage);
         // JOptionPane.showMessageDialog(null, "Solver escaped the maze!!","YOU WON!", JOptionPane.INFORMATION_MESSAGE,winIcon);
+
+        ImageIcon playerFighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png");
+        Image playerFighterImage = playerFighterIcon.getImage();
+        Image modifiedplayerFighterImage = playerFighterImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+        playerFighterIcon = new ImageIcon(modifiedplayerFighterImage);
         
     }
 

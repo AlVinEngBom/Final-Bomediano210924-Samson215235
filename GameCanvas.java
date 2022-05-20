@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.Image;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.text.DecimalFormat;
 
@@ -119,7 +119,7 @@ public class GameCanvas extends JComponent{
                 Enemies.add(new Enemy(457,413,50,50,1,2));
             }
             
-
+            //Enemy to wall collision
             for(int i = 0; i < Enemies.size(); i+=1){
                 if(Enemies.get(i).getX() <= 0){ 
                     Enemies.get(i).reverseX();
