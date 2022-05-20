@@ -11,6 +11,8 @@ public class GameFrame extends JFrame{
     private JPanel cp;
     private GameCanvas gc;
     private Socket socket;
+    private ReadFromServer rfsRunnable;
+    private WriteToServer wtsRunnable;
 
     public GameFrame(int w, int h) {
         width = w;
@@ -70,8 +72,78 @@ public class GameFrame extends JFrame{
             if(playerID == 1) {
                 System.out.println("Waiting for player #2 to connect...");
             }
+            rfsRunnable = new ReadFromServer(in);
+            wtsRunnable = new WriteToServer(out);
+            rfsRunnable.waitForGameStart();
         } catch(IOException ex) {
             System.out.println("IOException from connectToServer()");
+        }
+    }
+
+    private class ReadFromServer implements Runnable {
+
+        private DataInputStream dataIn;
+
+        public ReadFromServer(DataInputStream in) {
+            dataIn = in;
+            System.out.println("RFS Runnable created");
+        }
+
+        public void run() {
+            try {
+                while(true) {
+                    if(gc != null) {
+                        gc.getOther().setX(dataIn.readInt());
+                        gc.getOther().setY(dataIn.readInt());
+                    }
+                }
+            } catch (IOException ex) {
+               System.out.println("IOException from RFS run()");
+            }
+        }
+
+        public void waitForGameStart() {
+            try {
+                String startGame = dataIn.readUTF();
+                System.out.println("Message from server: " + startGame);
+
+                // start the game: start threads
+                Thread readThread = new Thread(rfsRunnable);
+                Thread writeThread = new Thread(wtsRunnable);
+                readThread.start();
+                writeThread.start();
+            } catch (IOException ex) {
+                System.out.println("IOException from waitForGameStart()");
+            }
+        }
+    }
+
+    private class WriteToServer implements Runnable {
+
+        private DataOutputStream dataOut;
+
+        public WriteToServer(DataOutputStream out) {
+            dataOut = out;
+            System.out.println("WTS Runnable created");
+        }
+
+        public void run() {
+            try {
+                while(true) {
+                    if(gc != null) {
+                        dataOut.writeInt(gc.getPlayer().getX());
+                        dataOut.writeInt(gc.getPlayer().getY());
+                        dataOut.flush();
+                    }
+                    try {
+                        Thread.sleep(25);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Interrupted Exception from WTS run()");
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("IOException from WTS run()");
+            }
         }
     }
 }

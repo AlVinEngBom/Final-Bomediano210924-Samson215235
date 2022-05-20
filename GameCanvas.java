@@ -19,14 +19,12 @@ public class GameCanvas extends JComponent{
         gameTime = 0;
 
         animationTimer.start();
-        fighter = new Player(100, 100, 25, 25, width, height);
-        solver = new Player(200, 200, 25, 25, width, height);
+        fighter = new Player(231, 263, 25, 25, width, height);
+        solver = new Player(743, 263, 25, 25, width, height);
 
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,50,50,0.5,3));
         Enemies.add(new Enemy(100,400,50,50,1,2));
-
-
    }
    
     protected void paintComponent(Graphics g){
@@ -46,6 +44,14 @@ public class GameCanvas extends JComponent{
 
     public Player getPlayer(){
         if (playerID == 1) {
+            return fighter;
+        } else {
+            return solver;
+        }
+    }
+
+    public Player getOther(){
+        if (playerID == 2) {
             return fighter;
         } else {
             return solver;
@@ -85,12 +91,12 @@ public class GameCanvas extends JComponent{
                 Enemies.add(new Enemy(457,413,50,50,0,2));
             }
             
-
+            // Enemy to Wall Collissions
             for(int i = 0; i < Enemies.size(); i+=1){
                 if(Enemies.get(i).getX() <= 0){ 
                     Enemies.get(i).reverseX();
                 }
-                else if(Enemies.get(i).getX() + Enemies.get(i).getWidth() >= width){ 
+                else if(Enemies.get(i).getX() + Enemies.get(i).getWidth() >= width/2){ 
                     Enemies.get(i).reverseX();
                 }
                 if(Enemies.get(i).getY() <= 0){ 
@@ -107,7 +113,7 @@ public class GameCanvas extends JComponent{
             if(fighter.getX() <= 0){ 
                 fighter.boundRight();
             }
-            else if(fighter.getX() + fighter.getWidth() >= width){
+            else if(fighter.getX() + fighter.getWidth() >= width/2){
                 fighter.boundLeft();
             }
             if(fighter.getY() <= 0){

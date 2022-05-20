@@ -25,7 +25,7 @@ public class Player {
     }
     public void boundLeft() {
         // x = 0;
-        x = boundWidth - width;
+        x = boundWidth/2 - width;
     }
     public void boundRight() {
         // x = boundWidth - width;
@@ -39,6 +39,12 @@ public class Player {
         // y = boundHeight - height;
         y = 0;
     } 
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
     public int getX(){
         return x;
     }
