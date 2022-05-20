@@ -74,7 +74,7 @@ public class GameFrame extends JFrame{
             }
             rfsRunnable = new ReadFromServer(in);
             wtsRunnable = new WriteToServer(out);
-            
+
             rfsRunnable.waitForGameStart();
         } catch(IOException ex) {
             System.out.println("IOException from connectToServer()");
@@ -93,10 +93,12 @@ public class GameFrame extends JFrame{
         public void run() {
             try {
                 while(true) {
-                    if(gc != null) {
+                    try {
                         gc.getOther().setX(dataIn.readInt());
                         gc.getOther().setY(dataIn.readInt());
-                    }
+                    } catch (NullPointerException ex) {
+                        System.out.println("NullPointerException ex");
+                    }   
                 }
             } catch (IOException ex) {
                System.out.println("IOException from RFS run()");

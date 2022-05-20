@@ -60,11 +60,11 @@ public class GameCanvas extends JComponent{
 
     public
 
-    Timer animationTimer = new Timer(1, new ActionListener(){
+    Timer animationTimer = new Timer(10, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
             gameTime++;
-            System.out.println(gameTime/100);
+            // System.out.println(gameTime/100);
             if(gameTime == 1000){
                 Enemies.add(new Enemy(5,5,50,50,3,0.5));
 
