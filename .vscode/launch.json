@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch GameServer",
+            "request": "launch",
+            "mainClass": "GameServer",
+            "projectName": "Final-Bomediano210924-Samson215235_1537e793"
+        },
+        {
+            "type": "java",
+            "name": "Launch GameStarter",
+            "request": "launch",
+            "mainClass": "GameStarter",
+            "projectName": "Final-Bomediano210924-Samson215235_1537e793"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch GameServer",
+            "request": "launch",
+            "mainClass": "GameServer",
+            "projectName": "Final-Bomediano210924-Samson215235_ca8449c3"
+        },
+        {
+            "type": "java",
+            "name": "Launch GameStarter",
+            "request": "launch",
+            "mainClass": "GameStarter",
+            "projectName": "Final-Bomediano210924-Samson215235_ca8449c3"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Compund",
+            "configurations": ["Launch GameServer", "Launch GameStarter", "Launch GameStarter"]
+        }
+    ]
+}
