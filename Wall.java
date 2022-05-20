@@ -1,16 +1,16 @@
 import java.awt.*;
 
-public class Enemy{
+public class Wall{
     private int x,y,width,height;
     private double xspeed,yspeed;
    
     //a constructor that accepts arguments for the x and y positions, width, height, 
     //and speed of the rectangle
-    public Enemy(int x, int y, double xspeed, double yspeed){
+    public Wall(int x, int y, int width, int height, double xspeed, double yspeed){
         this.x = x;
         this.y = y;
-        width = 35;
-        height = 40;
+        this.width = width;
+        this.height = height;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
     }
@@ -30,38 +30,6 @@ public class Enemy{
     }
     public int getHeight(){
         return height;
-    }
-    public double getXspeed(){
-        return xspeed;
-    }
-    public double getYspeed(){
-        return yspeed;
-    }
-    //reverses the horizontal direction
-    public void reverseX(){
-        xspeed *= -1;
-    }
-    //reverses the vertical direction
-    public void reverseY(){
-        yspeed *= -1;
-    }
-    //reverses the direction for both
-    public void reverseSpeed(){
-        xspeed *= -1;
-        yspeed *= -1;
-    }
-    //moves the x
-    public void moveX(){
-        x += xspeed;
-    }
-    //moves the y
-    public void moveY(){
-        y += yspeed;
-    }
-    //moves x and y
-    public void move(){
-        x += xspeed;
-        y += yspeed;
     }
     //boolean for collision
     public boolean isColliding(Enemy other){
