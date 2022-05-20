@@ -59,14 +59,14 @@ public class GameServer {
                     p2WriteRunnable.sendStartSignal();
 
                     Thread readThread1 = new Thread(p1ReadRunnable);
-                    Thread readThread2 = new Thread(p2ReadRunnable);
-                    readThread1.start();
-                    readThread2.start();
-
-                    Thread writeThread1 = new Thread(p1WriteRunnable);
-                    Thread writeThread2 = new Thread(p2WriteRunnable);
-                    writeThread1.start();
-                    writeThread2.start();
+					Thread readThread2 = new Thread(p2ReadRunnable);
+					readThread1.start();
+					readThread2.start();
+					
+					Thread writeThread1 = new Thread(p1WriteRunnable);
+					Thread writeThread2 = new Thread(p2WriteRunnable);
+					writeThread1.start();
+					writeThread2.start();
                 }
             }
 
@@ -117,19 +117,21 @@ public class GameServer {
 
         public void run() {
             try {
-                if(playerID == 1) {
-                    dataOut.writeInt(p2x);
-                    dataOut.writeInt(p2y);
-                    dataOut.flush();
-                } else {
-                    dataOut.writeInt(p1x);
-                    dataOut.writeInt(p1y);
-                    dataOut.flush();
-                }
-                try {
-                    Thread.sleep(25);
-                } catch (InterruptedException ex) {
-                    System.out.println("InterruptedException from WTC run()");
+                while(true) {
+                    if(playerID == 1) {
+                        dataOut.writeInt(p2x);
+                        dataOut.writeInt(p2y);
+                        dataOut.flush();
+                    } else {
+                        dataOut.writeInt(p1x);
+                        dataOut.writeInt(p1y);
+                        dataOut.flush();
+                    }
+                    try {
+                        Thread.sleep(25);
+                    } catch (InterruptedException ex) {
+                        System.out.println("InterruptedException from WTC run()");
+                    }
                 }
             } catch (IOException ex) {
                 System.out.println("IOException from WTC run()");

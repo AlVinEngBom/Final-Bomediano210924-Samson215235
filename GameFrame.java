@@ -74,6 +74,7 @@ public class GameFrame extends JFrame{
             }
             rfsRunnable = new ReadFromServer(in);
             wtsRunnable = new WriteToServer(out);
+            
             rfsRunnable.waitForGameStart();
         } catch(IOException ex) {
             System.out.println("IOException from connectToServer()");
