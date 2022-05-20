@@ -51,17 +51,23 @@ public class GameCanvas extends JComponent{
             Enemies.get(i).draw(g);
         }
 
-        g.setColor(Color.GREEN);
-        fighter.draw(g);
+        // g.setColor(Color.GREEN);
+        // fighter.draw(g);
 
-        g.setColor(Color.BLUE);
-        solver.draw(g);
+        // g.setColor(Color.BLUE);
+        // solver.draw(g);
+
+        Image fighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png").getImage();
+        fighter.draw(g, fighterIcon, 50, 50);
+
+        Image solverIcon = new ImageIcon("Sprites/PlayerSolverSprites/down/down1.png").getImage();
+        solver.draw(g, solverIcon, 150, 150);
 
         g.setColor(Color.WHITE);
         g.drawString(timerText,497,20);
 
         g.setColor(Color.WHITE);
-        g.drawString("Lives: " +fighterHealth,490,30);
+        g.drawString("Lives: " + fighterHealth,490,30);
    }
 
     public Player getPlayer(){
@@ -181,6 +187,7 @@ public class GameCanvas extends JComponent{
                 }
                 
             }
+
 
             fighter.move();
             solver.move();

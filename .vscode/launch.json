@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch GameServer",
+            "request": "launch",
+            "mainClass": "GameServer",
+            "projectName": "Final-Bomediano210924-Samson215235_1537e793"
+        },
+        {
+            "type": "java",
             "name": "Launch GameStarter",
             "request": "launch",
             "mainClass": "GameStarter",

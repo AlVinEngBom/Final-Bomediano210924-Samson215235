@@ -1,4 +1,6 @@
 import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 public class Player {
     private int x,y,width,height,speed, boundWidth, boundHeight;
@@ -18,8 +20,8 @@ public class Player {
 
     }
     //draws the rectangle
-    public void draw(Graphics g){
-        g.fillRect(x,y,width,height);
+    public void draw(Graphics g, Image ii, int x, int y ){
+        g.drawImage(ii, x, y, null);
     }
     //acccessor methods to return all instance fields
     public void stop() {
