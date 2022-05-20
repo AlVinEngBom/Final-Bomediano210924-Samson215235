@@ -162,6 +162,12 @@ public class GameCanvas extends JComponent{
                     else if(Walls.get(i).getX() - solver.getX() + solver.getWidth() >= 5){
                         solver.boundRight(Walls.get(i).getX());
                     }
+                    else if(Walls.get(i).getY() + Walls.get(i).getHeight() - solver.getY() <= 5){ 
+                        solver.boundTop(Walls.get(i).getY() + Walls.get(i).getHeight());
+                    }
+                    else if(Walls.get(i).getY() - solver.getY() + solver.getHeight() >= 5){
+                        solver.boundBottom(Walls.get(i).getY());
+                    }
                     
                     
                     
