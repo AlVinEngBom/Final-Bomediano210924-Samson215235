@@ -8,6 +8,7 @@ public class GameCanvas extends JComponent{
     private int width, height, gameTime, playerID;
     private Player fighter, solver;
     private ArrayList<Enemy> Enemies;
+    private ArrayList<Wall> Walls;
 
     
     public GameCanvas(int w, int h, int pID){
@@ -19,16 +20,27 @@ public class GameCanvas extends JComponent{
         gameTime = 0;
 
         animationTimer.start();
-        fighter = new Player(231, 263, 25, 25, width, height);
-        solver = new Player(743, 263, 25, 25, width, height);
+
+        fighter = new Player(231, 263, 25, 25);
+        solver = new Player(743, 263, 25, 25);
 
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,0.5,3));
         Enemies.add(new Enemy(100,400,1,2));
+
+        Walls = new ArrayList<Wall>();
+        Walls.add(new Wall(512+0, 0, 511, 6));
+        Walls.add(new Wall(512+506, 0, 6, 576));
+        Walls.add(new Wall(512+0, 0, 6, 576));
+        Walls.add(new Wall(512+46, 570, 467, 6));
    }
    
     protected void paintComponent(Graphics g){
         
+        g.setColor(Color.BLACK);
+        for(int i = 0; i < Walls.size(); i+=1){
+            Walls.get(i).draw(g);
+        }
         
         g.setColor(Color.RED);
         for(int i = 0; i < Enemies.size(); i+=1){
@@ -91,7 +103,7 @@ public class GameCanvas extends JComponent{
                 Enemies.add(new Enemy(457,413,0,2));
             }
             
-            // Enemy to Wall Collissions
+            // Enemy to Bound Collissions
             for(int i = 0; i < Enemies.size(); i+=1){
                 if(Enemies.get(i).getX() <= 0){ 
                     Enemies.get(i).reverseX();
@@ -109,32 +121,18 @@ public class GameCanvas extends JComponent{
                 Enemies.get(i).move();
             }
 
-            // PlayerFighter to Wall Collissions
+            // PlayerFighter to Bound Collissions
             if(fighter.getX() <= 0){ 
-                fighter.boundRight(0);
+                fighter.boundLeft(0);
             }
             else if(fighter.getX() + fighter.getWidth() >= width/2){
-                fighter.boundLeft(width/2);
+                fighter.boundRight(width/2);
             }
             if(fighter.getY() <= 0){
-                fighter.boundBottom();
+                fighter.boundTop(0);
             }
             else if(fighter.getY() + fighter.getHeight() >= height){
-                fighter.boundTop();
-            }
-
-            // PlayerSolver to Wall Collissions
-            if(solver.getX() <= width/2){ 
-                solver.boundRight(width/2);
-            }
-            else if(solver.getX() + solver.getWidth() >= width){
-                solver.boundLeft(width);
-            }
-            if(solver.getY() <= 0){
-                solver.boundBottom();
-            }
-            else if(solver.getY() + solver.getHeight() >= height){
-                solver.boundTop();
+                fighter.boundBottom(height);
             }
 
             // Enemy to Enemy Collissions
@@ -149,9 +147,32 @@ public class GameCanvas extends JComponent{
 
             // Enemy to PlayerFighter Collissions
             for(int i = 0; i < Enemies.size(); i++){
-                if(fighter.isColliding(Enemies.get(i))){
+                if(fighter.enemyIsColliding(Enemies.get(i))){
                     Enemies.remove(i);
                     fighter.stop();
+                }
+            }
+
+            // Wall to PlayerSolver Collissions
+            for(int i = 0; i < Walls.size(); i++){
+                if(solver.wallIsColliding(Walls.get(i))){
+                    if(Walls.get(i).getX() + Walls.get(i).getWidth() - solver.getX() <= 5){ 
+                        solver.boundLeft(Walls.get(i).getX() + Walls.get(i).getWidth());
+                    }
+                    else if(Walls.get(i).getX() - solver.getX() + solver.getWidth() >= 5){
+                        solver.boundRight(Walls.get(i).getX());
+                    }
+                    
+                    
+                    
+                    // if(solver.getY() <= 0){
+                    //     // solver.boundTop(0);
+                    //     System.out.println("3");
+                    // }
+                    // else if(solver.getY() + solver.getHeight() >= height){
+                    //     // solver.boundBottom(height);
+                    //     System.out.println("4");
+                    // } 
                 }
             }
 

@@ -15,6 +15,19 @@ public class Wall{
     public void draw(Graphics g){
         g.fillRect(x,y,width,height);
     }
+    //acccessor methods to return all instance fields
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
     //boolean for collision
     public boolean isColliding(Enemy other){
         return !(   this.x + this.width <= other.getX() ||

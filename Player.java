@@ -1,17 +1,16 @@
 import java.awt.*;
 
 public class Player {
-    private int x,y,width,height,speed, boundHeight;
+    private int x,y,width,height,speed;
     private boolean up,down,left,right;
     
-    public Player(int x, int y, int width, int height, int boundWidth, int boundHeight){
+    public Player(int x, int y, int width, int height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         up = down = left = right = false;
         speed = 5;
-        this.boundHeight = boundHeight;
 
     }
     //draws the rectangle
@@ -22,21 +21,21 @@ public class Player {
     public void stop() {
         up = down = left = right = false;
     }
-    public void boundLeft(int boundEnd) {
+    public void boundRight(int right) {
         // x = 0;
-        x = boundEnd - width;
+        x = right - width;
     }
-    public void boundRight(int boundStart) {
+    public void boundLeft(int left) {
         // x = boundWidth - width;
-        x = boundStart;
+        x = left;
     } 
-    public void boundTop() {
+    public void boundBottom(int bottom) {
         // y = 0;
-        y = boundHeight - height;
+        y = bottom - height;
     } 
-    public void boundBottom() {
+    public void boundTop(int top) {
         // y = boundHeight - height;
-        y = 0;
+        y = top;
     } 
     public void setX(int x){
         this.x = x;
@@ -93,8 +92,15 @@ public class Player {
         }
     }
     
-    //boolean for collision
-    public boolean isColliding(Enemy other){
+    //booleans for collision
+    public boolean enemyIsColliding(Enemy other){
+        return !(   this.x + this.width <= other.getX() ||
+                    this.x >= other.getX() + other.getWidth() ||
+                    this.y + this.height <= other.getY() ||
+                    this.y >= other.getY() + other.getHeight() );
+    }
+
+    public boolean wallIsColliding(Wall other){
         return !(   this.x + this.width <= other.getX() ||
                     this.x >= other.getX() + other.getWidth() ||
                     this.y + this.height <= other.getY() ||
