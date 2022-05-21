@@ -113,8 +113,8 @@ public class GameCanvas extends JComponent{
         //storing images in variables for drawing in
         Image gb = new ImageIcon("Sprites/GameBackground.png").getImage();
         Image enemyIcon = new ImageIcon("Sprites/EnemySprite.png").getImage();
-        Image fighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png").getImage();
-        Image solverIcon = new ImageIcon("Sprites/PlayerSolverSprites/down/down1.png").getImage();
+        Image fighterIcon = new ImageIcon("Sprites/FighterSprite.png").getImage();
+        Image solverIcon = new ImageIcon("Sprites/SolverSprite.png").getImage();
 
         //draw in the background
         g.drawImage(gb, 0, 0, null);
