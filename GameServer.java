@@ -2,10 +2,10 @@
 //contains themain method that instantiates and startsthe server.
 
 //To connect to the EC2 instance:
-// ssh -i linuxserverkey.pem ec2-user@54.89.201.72
+// ssh -i linuxserverkey.pem ec2-user@54.221.143.73
 
 //To upload GameServer file to the instance:
-// scp -i linuxserverkey.pem GameServer.java ec2-user@54.89.201.72:~
+// scp -i linuxserverkey.pem GameServer.java ec2-user@54.221.143.73
 
 //Remember to compile before running
 // javac GameServer.java
