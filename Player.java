@@ -13,8 +13,8 @@ public class Player {
         up = down = left = right = false;
     }
     //draws the rectangle
-    public void draw(Graphics g){
-        g.fillRect(x,y,width,height);
+    public void draw(Graphics g, Image i){
+        g.drawImage(i, x, y, null);
     }
     //acccessor methods to return all instance fields
     public void stop() {

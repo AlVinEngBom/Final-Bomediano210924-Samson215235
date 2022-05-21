@@ -63,7 +63,7 @@ public class GameFrame extends JFrame{
 
     public void connectToServer() {
         try {
-            socket = new Socket("54.89.201.72", 55555);
+            socket = new Socket("localhost", 55555); // 54.89.201.72
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 

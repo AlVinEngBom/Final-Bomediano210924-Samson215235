@@ -1,15 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GameCanvas extends JComponent{
 
-    private int width, height, gameTime, playerID;
+    private int width, height, gameTime, playerID, fighterHealth, second, minute, delaySecond;
+    private String ddSecond,ddMinute, timerText;
     private Player fighter, solver;
     private ArrayList<Enemy> Enemies;
     private ArrayList<Wall> Walls;
-
     
     public GameCanvas(int w, int h, int pID){
         width = w;
@@ -17,12 +18,15 @@ public class GameCanvas extends JComponent{
         playerID = pID;
         setPreferredSize( new Dimension(width, height) );
 
+        fighterHealth = 3;
         gameTime = 0;
+        second = 0;
+        minute = 0;
 
         animationTimer.start();
 
-        fighter = new Player(231, 263, 25, 25, 5);
-        solver = new Player(745, 263, 25, 25, 1);
+        fighter = new Player(231, 263, 35, 45, 5);
+        solver = new Player(745, 263, 30, 35, 1);
 
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,0.5,3));
@@ -77,22 +81,31 @@ public class GameCanvas extends JComponent{
    }
    
     protected void paintComponent(Graphics g){
+
+        Image gb = new ImageIcon("Sprites/GameBackground.png").getImage();
+        Image enemyIcon = new ImageIcon("Sprites/EnemySprite.png").getImage();
+        Image fighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png").getImage();
+        Image solverIcon = new ImageIcon("Sprites/PlayerSolverSprites/down/down1.png").getImage();
+
+        g.drawImage(gb, 0, 0, null);
         
         g.setColor(Color.BLACK);
         for(int i = 0; i < Walls.size(); i+=1){
             Walls.get(i).draw(g);
         }
         
-        g.setColor(Color.RED);
         for(int i = 0; i < Enemies.size(); i+=1){
-            Enemies.get(i).draw(g);
+            Enemies.get(i).draw(g, enemyIcon);
         }
 
-        g.setColor(Color.GREEN);
-        fighter.draw(g);
+        fighter.draw(g, fighterIcon);
+        solver.draw(g, solverIcon);
 
-        g.setColor(Color.BLUE);
-        solver.draw(g);
+        g.setColor(Color.WHITE);
+        g.drawString(timerText,497,17);
+
+        g.setColor(Color.WHITE);
+        g.drawString("Lives: " + fighterHealth,490,570);
    }
 
     public Player getPlayer(){
@@ -116,8 +129,25 @@ public class GameCanvas extends JComponent{
     Timer animationTimer = new Timer(10, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
+            delaySecond++;
+            second = delaySecond/100;
+            DecimalFormat dFormat = new DecimalFormat("00");
+            ddSecond = dFormat.format(second);
+            ddMinute = dFormat.format(minute);
+            timerText = ddMinute + ":" + ddSecond;
+
+            if(second == 60){
+                delaySecond = 0;
+                second = 0;
+                minute++;
+                ddSecond = dFormat.format(second);
+                ddMinute = dFormat.format(minute);
+                timerText = ddMinute + ":" + ddSecond;
+            } 
+
+
             gameTime++;
-            // System.out.println(gameTime/100);
+
             if(gameTime == 1000){
                 Enemies.add(new Enemy(5,5,3,0.5));
 
@@ -190,7 +220,20 @@ public class GameCanvas extends JComponent{
             for(int i = 0; i < Enemies.size(); i++){
                 if(fighter.enemyIsColliding(Enemies.get(i))){
                     Enemies.remove(i);
-                    fighter.stop();
+                    fighterHealth -= 1;
+
+                    //losing condition
+                    if(fighterHealth == 0){
+                        fighter.stop();
+                        solver.stop();
+                        animationTimer.stop();
+                        ImageIcon loseIcon = new ImageIcon("Sprites/LoseEmoji.png");
+                        Image loseImage = loseIcon.getImage();
+                        Image modifiedLoseImage = loseImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
+                        loseIcon = new ImageIcon(modifiedLoseImage);
+                        JOptionPane.showMessageDialog(null, "Fighter ran out of lives!!","YOU LOST!", JOptionPane.INFORMATION_MESSAGE,loseIcon);
+                        System.exit(0);
+                    }   
                 }
             }
 
@@ -213,6 +256,19 @@ public class GameCanvas extends JComponent{
                         solver.boundBottom();
                     }
                 }
+            }
+
+            //winning condition
+            if(solver.getY() + solver.getHeight() >= height){
+                animationTimer.stop();
+                solver.stop();
+                fighter.stop();
+                ImageIcon winIcon = new ImageIcon("Sprites/WinEmoji.png");
+                Image winImage = winIcon.getImage();
+                Image modifiedWinImage = winImage.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
+                winIcon = new ImageIcon(modifiedWinImage);
+                JOptionPane.showMessageDialog(null, "Solver escaped the maze!!","YOU WON!", JOptionPane.INFORMATION_MESSAGE,winIcon);
+                System.exit(0);
             }
 
             fighter.move();
