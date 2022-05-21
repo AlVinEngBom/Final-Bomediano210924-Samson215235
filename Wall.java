@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Wall{
     private int x,y,width,height;
+    private boolean alreadyCollided;
    
     //a constructor that accepts arguments for the x and y positions, width, height, 
     //and speed of the rectangle
@@ -10,12 +11,18 @@ public class Wall{
         this.y = y;
         this.width = width;
         this.height = height;
+        alreadyCollided = false;
     }
     //draws the rectangle
     public void draw(Graphics g){
-        g.fillRect(x,y,width,height);
+        if(alreadyCollided) {
+            g.fillRect(x,y,width,height);
+        }
     }
     //acccessor methods to return all instance fields
+    public void collided() {
+        alreadyCollided = true; 
+    }
     public int getX(){
         return x;
     }

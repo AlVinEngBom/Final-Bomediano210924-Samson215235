@@ -21,8 +21,8 @@ public class GameCanvas extends JComponent{
 
         animationTimer.start();
 
-        fighter = new Player(231, 263, 25, 25);
-        solver = new Player(743, 263, 25, 25);
+        fighter = new Player(231, 263, 25, 25, 5);
+        solver = new Player(745, 263, 25, 25, 1);
 
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,0.5,3));
@@ -32,7 +32,48 @@ public class GameCanvas extends JComponent{
         Walls.add(new Wall(512+0, 0, 511, 6));
         Walls.add(new Wall(512+506, 0, 6, 576));
         Walls.add(new Wall(512+0, 0, 6, 576));
-        Walls.add(new Wall(512+46, 570, 467, 6));
+        Walls.add(new Wall(512+55, 570, 457, 6));
+        Walls.add(new Wall(512+225, 0, 6, 178));
+        Walls.add(new Wall(512+281, 0, 6, 120));
+        Walls.add(new Wall(512+281, 113, 63, 7));
+        Walls.add(new Wall(512+338, 57, 6, 63));
+        Walls.add(new Wall(512+338, 57, 62, 6));
+        Walls.add(new Wall(512+225, 172, 175, 6));
+        Walls.add(new Wall(512+394, 113, 6, 347));
+        Walls.add(new Wall(512+394, 113, 63, 6));
+        Walls.add(new Wall(512+451, 56, 6, 63));
+        Walls.add(new Wall(512+449, 170, 63, 6));
+        Walls.add(new Wall(512+168, 226, 284, 6));
+        Walls.add(new Wall(512+168, 56, 6, 176));
+        Walls.add(new Wall(512+113, 113, 61, 6));
+        Walls.add(new Wall(512+113, 113, 61, 6));
+        Walls.add(new Wall(512+57, 57, 60, 6));
+        Walls.add(new Wall(512+57, 57, 6, 121));
+        Walls.add(new Wall(512+0, 172, 118, 6));
+        Walls.add(new Wall(512+113, 172, 6, 288));
+        Walls.add(new Wall(512+0, 340, 63, 6));
+        Walls.add(new Wall(512+57, 226, 6, 120));
+        Walls.add(new Wall(512+57, 396, 62, 6));
+        Walls.add(new Wall(512+0, 453, 62, 6));
+        Walls.add(new Wall(512+57, 453, 6, 62));
+        Walls.add(new Wall(512+449, 283, 63, 6));
+        Walls.add(new Wall(512+449, 283, 6, 120));
+        Walls.add(new Wall(512+449, 453, 63, 6));
+        Walls.add(new Wall(512+449, 453, 6, 62));
+        Walls.add(new Wall(512+338, 509, 117, 6));
+        Walls.add(new Wall(512+338, 396, 6, 119));
+        Walls.add(new Wall(512+281, 453, 63, 6));
+        Walls.add(new Wall(512+225, 396, 6, 180));
+        Walls.add(new Wall(512+225, 509, 63, 6));
+        Walls.add(new Wall(512+225, 396, 62, 6));
+        Walls.add(new Wall(512+281, 340, 6, 62));
+        Walls.add(new Wall(512+168, 340, 176, 6));
+        Walls.add(new Wall(512+168, 283, 6, 232));
+        Walls.add(new Wall(512+113, 509, 61, 6));
+        Walls.add(new Wall(512+226, 283, 6, 63));
+        Walls.add(new Wall(512+226, 283, 6, 63));
+        Walls.add(new Wall(512+338, 283, 6, 63));
+        Walls.add(new Wall(512+281, 283, 63, 6));
    }
    
     protected void paintComponent(Graphics g){
@@ -123,16 +164,16 @@ public class GameCanvas extends JComponent{
 
             // PlayerFighter to Bound Collissions
             if(fighter.getX() <= 0){ 
-                fighter.boundLeft(0);
+                fighter.boundLeft();
             }
             else if(fighter.getX() + fighter.getWidth() >= width/2){
-                fighter.boundRight(width/2);
+                fighter.boundRight();
             }
             if(fighter.getY() <= 0){
-                fighter.boundTop(0);
+                fighter.boundTop();
             }
             else if(fighter.getY() + fighter.getHeight() >= height){
-                fighter.boundBottom(height);
+                fighter.boundBottom();
             }
 
             // Enemy to Enemy Collissions
@@ -156,29 +197,21 @@ public class GameCanvas extends JComponent{
             // Wall to PlayerSolver Collissions
             for(int i = 0; i < Walls.size(); i++){
                 if(solver.wallIsColliding(Walls.get(i))){
+                    
+                    Walls.get(i).collided();
+
                     if(Walls.get(i).getX() + Walls.get(i).getWidth() - solver.getX() <= 5){ 
-                        solver.boundLeft(Walls.get(i).getX() + Walls.get(i).getWidth());
+                        solver.boundLeft();
                     }
-                    else if(Walls.get(i).getX() - solver.getX() + solver.getWidth() >= 5){
-                        solver.boundRight(Walls.get(i).getX());
+                    else if(Walls.get(i).getX() - solver.getX() + solver.getWidth() > 5){
+                        solver.boundRight();
                     }
-                    else if(Walls.get(i).getY() + Walls.get(i).getHeight() - solver.getY() <= 5){ 
-                        solver.boundTop(Walls.get(i).getY() + Walls.get(i).getHeight());
+                    if(Walls.get(i).getY() + Walls.get(i).getHeight() - solver.getY() <= 5){ 
+                        solver.boundTop();
                     }
-                    else if(Walls.get(i).getY() - solver.getY() + solver.getHeight() >= 5){
-                        solver.boundBottom(Walls.get(i).getY());
+                    else if(Walls.get(i).getY() - solver.getY() + solver.getHeight() > 5){
+                        solver.boundBottom();
                     }
-                    
-                    
-                    
-                    // if(solver.getY() <= 0){
-                    //     // solver.boundTop(0);
-                    //     System.out.println("3");
-                    // }
-                    // else if(solver.getY() + solver.getHeight() >= height){
-                    //     // solver.boundBottom(height);
-                    //     System.out.println("4");
-                    // } 
                 }
             }
 

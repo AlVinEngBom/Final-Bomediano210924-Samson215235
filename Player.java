@@ -4,14 +4,13 @@ public class Player {
     private int x,y,width,height,speed;
     private boolean up,down,left,right;
     
-    public Player(int x, int y, int width, int height){
+    public Player(int x, int y, int width, int height, int speed){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.speed = speed;
         up = down = left = right = false;
-        speed = 5;
-
     }
     //draws the rectangle
     public void draw(Graphics g){
@@ -21,21 +20,17 @@ public class Player {
     public void stop() {
         up = down = left = right = false;
     }
-    public void boundRight(int right) {
-        // x = 0;
-        x = right - width;
+    public void boundRight() {
+        this.right = false;
     }
-    public void boundLeft(int left) {
-        // x = boundWidth - width;
-        x = left;
+    public void boundLeft() {
+        this.left = false;
     } 
-    public void boundBottom(int bottom) {
-        // y = 0;
-        y = bottom - height;
+    public void boundBottom() {
+        this.down = false;
     } 
-    public void boundTop(int top) {
-        // y = boundHeight - height;
-        y = top;
+    public void boundTop() {
+        this.up = false;
     } 
     public void setX(int x){
         this.x = x;
