@@ -1,5 +1,17 @@
 //This class contains the code that managesthe game server's functionality. It also
 //contains themain method that instantiates and startsthe server.
+
+//To connect to the EC2 instance:
+// ssh -i linuxserverkey.pem ec2-user@54.89.201.72
+
+//To upload GameServer file to the instance:
+// scp -i linuxserverkey.pem GameServer.java ec2-user@54.89.201.72:~
+
+//Remember to compile before running
+// javac GameServer.java
+// java GameServer
+
+
 import java.io.*;
 import java.net.*;
 
@@ -23,7 +35,7 @@ public class GameServer {
         p2y = 263;
 
         try {
-            ss = new ServerSocket(45371);
+            ss = new ServerSocket(55555);
         } catch(IOException ex) {
             System.out.println("IOException from GameServer constructor");
         }
