@@ -1,3 +1,22 @@
+/**
+    @authors Al Vincent E. Bomediano (210924), Jerril Nheo A. Samson (215235)
+    @version May 21, 2022
+**/
+/*
+    We have not discussed the Java language code in my program 
+    with anyone other than my instructor or the teaching assistants 
+    assigned to this course.
+    We have not used Java language code obtained from another student, 
+    or any other unauthorized source, either modified or unmodified.
+    If any Java language code or documentation used in our program 
+    was obtained from another source, such as a textbook or website, 
+    that has been clearly noted with a proper citation in the comments 
+    of our program.
+*/
+
+//This class extendsJComponent and overrides the paintComponent method to create the custom drawings.
+//This class also contains all the sprites and gui elements interactivity and logic.
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,26 +31,34 @@ public class GameCanvas extends JComponent{
     private ArrayList<Enemy> Enemies;
     private ArrayList<Wall> Walls;
     
+    //Accepts width, height and playerID for the creation of the canvas
     public GameCanvas(int w, int h, int pID){
         width = w;
         height = h;
         playerID = pID;
+
+        //Set frame size
         setPreferredSize( new Dimension(width, height) );
 
+        //Game logic properties
         fighterHealth = 3;
         gameTime = 0;
         second = 0;
         minute = 0;
 
+        //Start animation timer thread
         animationTimer.start();
 
+        //create the two players
         fighter = new Player(231, 263, 35, 45, 5);
         solver = new Player(745, 263, 30, 35, 1);
 
+        //store initial enemies in an arrayList
         Enemies = new ArrayList<Enemy>();
         Enemies.add(new Enemy(65,305,1,3));
         Enemies.add(new Enemy(100,400,1,2));
 
+        //store all walls in an arrayList
         Walls = new ArrayList<Wall>();
         Walls.add(new Wall(512+0, 0, 511, 6));
         Walls.add(new Wall(512+506, 0, 6, 576));
@@ -80,34 +107,43 @@ public class GameCanvas extends JComponent{
         Walls.add(new Wall(512+281, 283, 63, 6));
    }
    
+   //for drawing in the game elements
     protected void paintComponent(Graphics g){
 
+        //storing images in variables for drawing in
         Image gb = new ImageIcon("Sprites/GameBackground.png").getImage();
         Image enemyIcon = new ImageIcon("Sprites/EnemySprite.png").getImage();
         Image fighterIcon = new ImageIcon("Sprites/PlayerFighterSprites/down/down1.png").getImage();
         Image solverIcon = new ImageIcon("Sprites/PlayerSolverSprites/down/down1.png").getImage();
 
+        //draw in the background
         g.drawImage(gb, 0, 0, null);
         
+        //draw in the maze walls
         g.setColor(Color.BLACK);
         for(int i = 0; i < Walls.size(); i+=1){
             Walls.get(i).draw(g);
         }
         
+        //draw in the enemies
         for(int i = 0; i < Enemies.size(); i+=1){
             Enemies.get(i).draw(g, enemyIcon);
         }
 
+        //draw in both players
         fighter.draw(g, fighterIcon);
         solver.draw(g, solverIcon);
 
+        //draw in the timer
         g.setColor(Color.WHITE);
         g.drawString(timerText,497,17);
 
+        //draw in the playerFighter health
         g.setColor(Color.WHITE);
         g.drawString("Lives: " + fighterHealth,490,570);
    }
 
+    //returns the correct player for the current client 
     public Player getPlayer(){
         if (playerID == 1) {
             return fighter;
@@ -116,6 +152,7 @@ public class GameCanvas extends JComponent{
         }
     }
 
+    //returns the other player for the current client
     public Player getOther(){
         if (playerID == 2) {
             return fighter;
@@ -124,11 +161,11 @@ public class GameCanvas extends JComponent{
         }
     }
 
-    public
-
+    //thread for the game process
     Timer animationTimer = new Timer(10, new ActionListener(){
         public void actionPerformed(ActionEvent ae){
             
+            //ingame timer logic
             delaySecond++;
             second = delaySecond/100;
             DecimalFormat dFormat = new DecimalFormat("00");
@@ -145,7 +182,7 @@ public class GameCanvas extends JComponent{
                 timerText = ddMinute + ":" + ddSecond;
             } 
 
-
+            //enemy timer logic, for adding in enemies after a certain time passes
             gameTime++;
 
             if(gameTime == 1000){
@@ -271,6 +308,7 @@ public class GameCanvas extends JComponent{
                 System.exit(0);
             }
 
+            //move players, update canvas
             fighter.move();
             solver.move();
             repaint();

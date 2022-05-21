@@ -1,5 +1,23 @@
-//This class contains the code that managesthe game server's functionality. It also
-//contains themain method that instantiates and startsthe server.
+/**
+    @authors Al Vincent E. Bomediano (210924), Jerril Nheo A. Samson (215235)
+    @version May 21, 2022
+**/
+/*
+    We have not discussed the Java language code in my program 
+    with anyone other than my instructor or the teaching assistants 
+    assigned to this course.
+    We have not used Java language code obtained from another student, 
+    or any other unauthorized source, either modified or unmodified.
+    If any Java language code or documentation used in our program 
+    was obtained from another source, such as a textbook or website, 
+    that has been clearly noted with a proper citation in the comments 
+    of our program.
+*/
+
+//This class contains the code that manages the game server's functionality. 
+//It also contains the main method that instantiates and starts the server.
+
+//To run the GameServer from the AWS EC2 Instance:
 
 //To connect to the EC2 instance:
 // ssh -i linuxserverkey.pem ec2-user@54.221.143.73
@@ -7,7 +25,7 @@
 //To upload GameServer file to the instance:
 // scp -i linuxserverkey.pem GameServer.java ec2-user@54.221.143.73
 
-//Remember to compile before running
+//Remember to compile before running it in the server
 // javac GameServer.java
 // java GameServer
 
@@ -24,6 +42,7 @@ public class GameServer {
     private ReadFromClient p1ReadRunnable, p2ReadRunnable;
     private WriteToClient p1WriteRunnable, p2WriteRunnable;
 
+    //sets default values in server to send to clients
     public GameServer() {
         System.out.println("===== Game Server =====");
         numPlayers = 0;
@@ -41,6 +60,7 @@ public class GameServer {
         }
     }
 
+    //accepting clients to connect to respective sockets
     public void acceptConnections() {
         try {
             System.out.println("Waiting for connections...");
@@ -66,7 +86,7 @@ public class GameServer {
                     p2ReadRunnable = rfc;
                     p2WriteRunnable = wtc;
 
-                    // start the game: start threads
+                    // start the game: create and start threads upon sending start signal to clients
                     p1WriteRunnable.sendStartSignal();
                     p2WriteRunnable.sendStartSignal();
 
@@ -88,6 +108,7 @@ public class GameServer {
         }
     }
 
+    //Thread for reading players coordinates received from the client.
     private class ReadFromClient implements Runnable {
 
         private int playerID;
@@ -116,6 +137,7 @@ public class GameServer {
         }
     }
 
+    //Thread for writing players coordinates sent to the client.
     private class WriteToClient implements Runnable {
 
         private int playerID;
@@ -150,6 +172,7 @@ public class GameServer {
             }
         }
 
+        //sends start signal to clients
         public void sendStartSignal() {
             try {
                 dataOut.writeUTF("Players have connected. GAME START!");
@@ -159,6 +182,7 @@ public class GameServer {
         }
     }
 
+    //runs the server itself
     public static void main(String[] args){
         GameServer gs = new GameServer();
         gs.acceptConnections();

@@ -1,3 +1,22 @@
+/**
+    @authors Al Vincent E. Bomediano (210924), Jerril Nheo A. Samson (215235)
+    @version May 21, 2022
+**/
+/*
+    We have not discussed the Java language code in my program 
+    with anyone other than my instructor or the teaching assistants 
+    assigned to this course.
+    We have not used Java language code obtained from another student, 
+    or any other unauthorized source, either modified or unmodified.
+    If any Java language code or documentation used in our program 
+    was obtained from another source, such as a textbook or website, 
+    that has been clearly noted with a proper citation in the comments 
+    of our program.
+*/
+
+//This class contains the code that sets up the mainJFrame for the moving game elements.
+//This class also sets up the GUI, keybindings and connection to the server.
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.DataInputStream;
@@ -14,14 +33,18 @@ public class GameFrame extends JFrame{
     private ReadFromServer rfsRunnable;
     private WriteToServer wtsRunnable;
 
+    //accepts width and height for the frame
     public GameFrame(int w, int h) {
         width = w;
         height = h;
     }
 
+    //sets up game gui
     public void setUpGUI(){
+        //create game canvas
         gc = new GameCanvas(width,height, playerID);
 
+        //setting up the gui elements
         this.add(gc);
         this.setTitle("Player #" + playerID);
         this.pack();
@@ -29,6 +52,7 @@ public class GameFrame extends JFrame{
         this.setVisible(true);
     }
 
+    //sets up the key bindings for current client
     public void addKeyBindings(){
         cp = (JPanel) this.getContentPane();
         cp.setFocusable(true);
@@ -49,6 +73,7 @@ public class GameFrame extends JFrame{
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0,false),"stop");
     }   
 
+    //keypress movement communication to the game canvas' player
     private class MoveAction extends AbstractAction{
         private String direction;
         
@@ -61,6 +86,7 @@ public class GameFrame extends JFrame{
         }
     }   
 
+    //Connecting to the server
     public void connectToServer() {
         try {
             socket = new Socket("54.221.143.73", 55555);
@@ -81,6 +107,7 @@ public class GameFrame extends JFrame{
         }
     }
 
+    //Thread for reading players coordinates received from the server.
     private class ReadFromServer implements Runnable {
 
         private DataInputStream dataIn;
@@ -105,12 +132,13 @@ public class GameFrame extends JFrame{
             }
         }
 
+        //this method makes the client wait for a signal given by the server before starting
         public void waitForGameStart() {
             try {
                 String startGame = dataIn.readUTF();
                 System.out.println("Message from server: " + startGame);
 
-                // start the game: start threads
+                // start the game: create and start threads
                 Thread readThread = new Thread(rfsRunnable);
                 Thread writeThread = new Thread(wtsRunnable);
                 readThread.start();
@@ -121,6 +149,7 @@ public class GameFrame extends JFrame{
         }
     }
 
+    //Thread for writing players coordinates sent to the server.
     private class WriteToServer implements Runnable {
 
         private DataOutputStream dataOut;

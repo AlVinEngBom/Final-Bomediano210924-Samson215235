@@ -1,3 +1,22 @@
+/**
+    @authors Al Vincent E. Bomediano (210924), Jerril Nheo A. Samson (215235)
+    @version May 21, 2022
+**/
+/*
+    We have not discussed the Java language code in my program 
+    with anyone other than my instructor or the teaching assistants 
+    assigned to this course.
+    We have not used Java language code obtained from another student, 
+    or any other unauthorized source, either modified or unmodified.
+    If any Java language code or documentation used in our program 
+    was obtained from another source, such as a textbook or website, 
+    that has been clearly noted with a proper citation in the comments 
+    of our program.
+*/
+
+//This class creates walls for the maze the playerSolver.
+//The walls simply contains logic to not let th
+
 import java.awt.*;
 
 public class Wall{
@@ -34,12 +53,5 @@ public class Wall{
     }
     public int getHeight(){
         return height;
-    }
-    //boolean for collision
-    public boolean isColliding(Enemy other){
-        return !(   this.x + this.width <= other.getX() ||
-                    this.x >= other.getX() + other.getWidth() ||
-                    this.y + this.height <= other.getY() ||
-                    this.y >= other.getY() + other.getHeight() );
     }
 }

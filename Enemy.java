@@ -1,3 +1,22 @@
+/**
+    @authors Al Vincent E. Bomediano (210924), Jerril Nheo A. Samson (215235)
+    @version May 21, 2022
+**/
+/*
+    We have not discussed the Java language code in my program 
+    with anyone other than my instructor or the teaching assistants 
+    assigned to this course.
+    We have not used Java language code obtained from another student, 
+    or any other unauthorized source, either modified or unmodified.
+    If any Java language code or documentation used in our program 
+    was obtained from another source, such as a textbook or website, 
+    that has been clearly noted with a proper citation in the comments 
+    of our program.
+*/
+
+// Java class that creates an enemy for the playerFighter to avoid. 
+// These also contains methods for movement and collissions to be called in the GameCanvas
+
 import java.awt.*;
 
 public class Enemy{
