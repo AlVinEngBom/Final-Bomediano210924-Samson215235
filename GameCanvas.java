@@ -29,7 +29,7 @@ public class GameCanvas extends JComponent{
         solver = new Player(745, 263, 30, 35, 1);
 
         Enemies = new ArrayList<Enemy>();
-        Enemies.add(new Enemy(65,305,0.5,3));
+        Enemies.add(new Enemy(65,305,1,3));
         Enemies.add(new Enemy(100,400,1,2));
 
         Walls = new ArrayList<Wall>();
@@ -149,7 +149,7 @@ public class GameCanvas extends JComponent{
             gameTime++;
 
             if(gameTime == 1000){
-                Enemies.add(new Enemy(5,5,3,0.5));
+                Enemies.add(new Enemy(5,5,3,1));
 
             }
             else if(gameTime == 2000){
@@ -165,7 +165,7 @@ public class GameCanvas extends JComponent{
                 Enemies.add(new Enemy(5,5,2,3));
             }
             else if(gameTime == 6000){
-                Enemies.add(new Enemy(457,50,0.5,2));
+                Enemies.add(new Enemy(457,50,1,2));
             }
             else if(gameTime == 7000){
                 Enemies.add(new Enemy(50,413,3,1));
