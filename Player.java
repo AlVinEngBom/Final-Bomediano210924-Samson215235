@@ -2,19 +2,16 @@ import java.awt.*;
 import java.awt.Image;
 
 public class Player {
-    private int x,y,width,height,speed, boundWidth, boundHeight;
+    private int x,y,width,height,speed;
     private boolean up,down,left,right;
     
-    public Player(int x, int y, int width, int height, int boundWidth, int boundHeight){
+    public Player(int x, int y, int width, int height, int speed){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.speed = speed;
         up = down = left = right = false;
-        speed = 5;
-        this.boundWidth = boundWidth;
-        this.boundHeight = boundHeight;
-
     }
     //draws the rectangle
     public void draw(Graphics g, Image i){
@@ -24,19 +21,25 @@ public class Player {
     public void stop() {
         up = down = left = right = false;
     }
-    public void boundLeft() {
-        x = boundWidth - width;
-    }
     public void boundRight() {
-        x = 0;
-    } 
-    public void boundTop() {
-        // y = 0;
-        y = boundHeight - height;
+        this.right = false;
+    }
+    public void boundLeft() {
+        this.left = false;
     } 
     public void boundBottom() {
-        y = 0;
+        this.down = false;
+
     } 
+    public void boundTop() {
+        this.up = false;
+    } 
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
     public int getX(){
         return x;
     }
@@ -88,8 +91,15 @@ public class Player {
         }
     }
     
-    //boolean for collision
-    public boolean isColliding(Enemy other){
+    //booleans for collision
+    public boolean enemyIsColliding(Enemy other){
+        return !(   this.x + this.width <= other.getX() ||
+                    this.x >= other.getX() + other.getWidth() ||
+                    this.y + this.height <= other.getY() ||
+                    this.y >= other.getY() + other.getHeight() );
+    }
+
+    public boolean wallIsColliding(Wall other){
         return !(   this.x + this.width <= other.getX() ||
                     this.x >= other.getX() + other.getWidth() ||
                     this.y + this.height <= other.getY() ||
