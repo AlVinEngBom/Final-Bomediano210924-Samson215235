@@ -20,10 +20,10 @@
 //To run the GameServer from the AWS EC2 Instance:
 
 //To connect to the EC2 instance:
-// ssh -i linuxserverkey.pem ec2-user@54.221.143.73
+// ssh -i linuxserverkey.pem ec2-user@3.91.154.236
 
 //To upload GameServer file to the instance:
-// scp -i linuxserverkey.pem GameServer.java ec2-user@54.221.143.73
+// scp -i linuxserverkey.pem GameServer.java ec2-user@3.91.154.236
 
 //Remember to compile before running it in the server
 // javac GameServer.java
